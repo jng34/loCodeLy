@@ -1,5 +1,18 @@
-// Method used to find permutations of all zip codes
-// from zip1 to zip2 and returns array of zips with
-// shortest length
+const findShortestPath = require('./findShortestPath')
 
-// if multiple arrays, then return unique set
+const allZips = findShortestPath(10002, 'Central Park');
+const lastZip = allZips[allZips.length - 1]
+
+const findZipsInBtwn = (endZip) => {
+  const zipsInShortestPath = [];
+  let currentZip = endZip;
+  while (currentZip) {
+    zipsInShortestPath.unshift(currentZip.zipCode);
+    currentZip = currentZip.previousNode;
+  }
+  return zipsInShortestPath;
+}
+
+console.log(findZipsInBtwn(lastZip))
+
+module.exports = findZipsInBtwn;
