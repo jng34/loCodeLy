@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const zipCodeGraph = require('./zipCodeGraph')
+const zipCodeGraph = require('./graphs/zipCodeGraph')
 
 app.get('/', (req, res) => {
   res.status(200).json(zipCodeGraph)
@@ -15,6 +15,6 @@ app.get('*', (req, res) => {
 })
 
 
-app.listen(3000, () => {
+app.listen(5000, () => {
   console.log('Server is running on port 3000')
 })

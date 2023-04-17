@@ -2,6 +2,7 @@ const findShortestPath = require('./findShortestPath')
 
 const allZips = findShortestPath(10002, 'Central Park');
 const lastZip = allZips[allZips.length - 1]
+// console.log(lastZip)
 
 const findZipsInBtwn = (endZip) => {
   const zipsInShortestPath = [];
@@ -13,6 +14,6 @@ const findZipsInBtwn = (endZip) => {
   return zipsInShortestPath;
 }
 
-console.log(findZipsInBtwn(lastZip))
+// console.log(findZipsInBtwn(lastZip))
 
 module.exports = findZipsInBtwn;
