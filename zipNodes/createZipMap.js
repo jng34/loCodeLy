@@ -2,7 +2,7 @@ const graph = require('../graphs/zipCodeGraph');
 const createZipNode = require('./createZipNode');
 
 
-const allZipNodes = () => {
+const createZipMap = () => {
   const map = [];
   // Grabs all keys (zips) in graph and pushes them into map array
   for (let zip in graph) {
@@ -11,5 +11,5 @@ const allZipNodes = () => {
   return map;
 }
 
-module.exports = allZipNodes;
+module.exports = createZipMap;
 
