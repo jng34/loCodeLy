@@ -1,6 +1,6 @@
 const graph = require('../graphs/zipCodeGraph')
-const allZipNodes = require('../zipNodes/allZipNodes')
-const zipMap = allZipNodes();
+const createZipMap = require("../zipNodes/createZipMap");
+const zipMap = createZipMap();
 const createZipNode = require('../zipNodes/createZipNode')
 
 // const updateUnvisitedZips = (currZip, zipMap) => {
@@ -60,8 +60,8 @@ const findShortestPath = (zip1, zip2) => {
 */
 
 
-
-console.log(findShortestPath(10002, 10021))
+// const zips = findShortestPath(10002, 10021);
+// console.log(zips)
 
 
 module.exports = findShortestPath
