@@ -5,35 +5,14 @@ const zipCodeGraph = require('./graphs/zipCodeGraph');
 const connectDB = require('./db/connect'); // connect to DB
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
+const yelpSearch = require('./yelp_fusion/yelp');
 require('dotenv').config();
 require('express-async-errors');
 
-const yelp = require('yelp-fusion');
-const client = yelp.client(process.env.YELP_API)
-
 
 // Test Yelp Fusion API call
-app.get('/', async (req,res) => {
-  const search = await client.search({
-      term: "Four Barrel Coffee",
-      location: "san francisco, ca",
-    })
-  res.status(200).json(search.jsonBody);
-    
-  // client
-  //   .search({
-  //     term: "Four Barrel Coffee",
-  //     location: "san francisco, ca",
-  //   })
-  //   .then((response) => {
-  //     // console.log(response.jsonBody);
-  //     res.status(200).json(response.jsonBody)
-  //   })
-  //   .catch((e) => {
-  //     console.log(e);
-  //   });
+app.get('/', yelpSearch)
 
-})
 
 // Middleware calls
 const errorHandlerMiddleware = require('./middleware/error-handling');
