@@ -5,10 +5,11 @@ const ZipSchema = new mongoose.Schema({
     type:Number, 
     required:[true, 'Please provide a 5 digit number']
   },
-  cafes:{
-    type:Object,
-    default:[]
+  cafe: {
+    default: []
   }
+
 })
+
 
 module.exports = ZipSchema;

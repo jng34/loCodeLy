@@ -7,12 +7,20 @@ const getAllZips = async (req, res) => {
   res.status(StatusCodes.OK).json({ zips })
 
 }
+
 const getZip = async (req, res) => {
   const zip = await Zip.findOne({ /** zipCode or id */ })
   res.status(StatusCodes.OK).json({ zip })
 }
 
+const createZip = async (req, res) => {
+  console.log(req.body)
+  const zip = await Zip.create({ ...req.body });
+  res.status(StatusCodes.CREATED).json({ x: '123' });
+}
+
 module.exports = {
   getAllZips,
-  getZip
+  getZip,
+  createZip
 }
