@@ -14,5 +14,4 @@ const allZips = findShortestPath(10002, 'Central Park');
 const lastZip = allZips[allZips.length - 1]
 console.log(findZipsInBtwn(lastZip))
 
-
 module.exports = findZipsInBtwn;

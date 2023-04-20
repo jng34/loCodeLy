@@ -34,7 +34,7 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 3000;
 
 // Connect to DB and start server 
-const startServer = async (port) => {
+const startServer = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(port, () => {
