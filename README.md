@@ -1,7 +1,7 @@
-***Lo-code-ly***
+## Lo-Code-Ly ##
 
-A web application that connects coders (users) based on their zip codes 
-and suggests cafes & coffee shops for them to meet up and code
+A full stack, web application that connects coders (users) based on their zip codes and suggests cafes & coffee shops for coding meetups
+
 
 Deliverables
  -Find shortest path from zip1 to zip2  ✔

@@ -11,4 +11,4 @@ const ZipSchema = new mongoose.Schema({
   }
 })
 
-module.exports = ZipSchema
+module.exports = ZipSchema;
