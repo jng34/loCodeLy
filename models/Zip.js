@@ -12,4 +12,4 @@ const ZipSchema = new mongoose.Schema({
 })
 
 
-module.exports = ZipSchema;
+module.exports = mongoose.model('Zip', ZipSchema);

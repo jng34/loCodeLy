@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const zips = require('../graphs/zipCodeGraph')
 
 const UserSchema = new mongoose.Schema({
   name:{
@@ -21,13 +20,19 @@ const UserSchema = new mongoose.Schema({
     // default: 10001,
     min:5,
     max:5
+  }, 
+  bio:{
+    type:String,
+    minLength:10,
+    maxLength:300
+  },
+  techStack:{
+    type:String,
+    max:300
   }
-
-  // Add short bio, tech stack
-  
 })
 
 
 
 
-module.exports = UserSchema;
+module.exports = mongoose.model('User', UserSchema);

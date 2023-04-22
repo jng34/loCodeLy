@@ -5,14 +5,26 @@ const zipCodeGraph = require('./graphs/zipCodeGraph');
 const connectDB = require('./db/connect'); // connect to DB
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
-const yelpSearch = require('./yelp_fusion/yelp');
+// const yelpSearch = require('./yelp_fusion/yelp');
 require('dotenv').config();
 require('express-async-errors');
 
 
-// Test Yelp Fusion API call
-app.get('/', yelpSearch)
+// Test Yelp Fusion API call //
+const yelp = require("yelp-fusion");
+const client = yelp.client(process.env.YELP_API);
 
+const yelpSearch = async (req, res) => {
+  const search = await client.search({
+    term: "cafe",
+    location: "new york, ny 10002",
+    attributes: "wifi_free"
+  });
+  res.status(200).json(search.jsonBody);
+};
+
+app.get('/yelp', yelpSearch)
+//////////////
 
 // Middleware calls
 const errorHandlerMiddleware = require('./middleware/error-handling');
@@ -24,20 +36,7 @@ app.use(express.json());
 // Routes
 app.use("/api/v1/user", userRouter);
 app.use('/api/v1/zips', zipRouter);
-
-
-
-// app.get('/api/v1/yelp', (req, res) => {
-//   res.status(200).json(zipCodeGraph)
-// })
-
-// app.get('/zipcodes', (req, res) => {
-//   res.status(200).json(Object.keys(zipCodeGraph))
-// })
-
-// app.get('*', (req, res) => {
-//   res.status(404).send('Not found')
-// })
+  
 
 // Middleware
 app.use(notFoundMiddleWare);
