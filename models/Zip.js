@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
+const zips = require('../graphs/zipCodeGraph')
 
 const ZipSchema = new mongoose.Schema({
   zipCode:{
     type:Number, 
-    required:[true, 'Please provide a 5 digit number']
+    enums: Object.keys(zips),
+    required:true
   },
   cafes:{
     type:[String],

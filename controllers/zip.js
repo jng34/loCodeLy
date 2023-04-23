@@ -16,7 +16,7 @@ const getZip = async (req, res) => {
 const createZip = async (req, res) => {
   console.log(req.body)
   const zip = await Zip.create({ ...req.body });
-  res.status(StatusCodes.CREATED).json({ x: '123' });
+  res.status(StatusCodes.CREATED).json(zip);
 }
 
 module.exports = {
