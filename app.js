@@ -1,4 +1,7 @@
 // Module and npm package calls
+require('dotenv').config();
+require('express-async-errors');
+
 const express = require('express');
 const app = express();
 const zipCodeGraph = require('./graphs/zipCodeGraph');
@@ -6,8 +9,6 @@ const connectDB = require('./db/connect'); // connect to DB
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
 // const yelpSearch = require('./yelp_fusion/yelp');
-require('dotenv').config();
-require('express-async-errors');
 
 
 // Test Yelp Fusion API call //
@@ -34,14 +35,13 @@ const notFoundMiddleWare = require("./middleware/not-found");
 app.use(express.json());
 
 // Routes
-app.use("/api/v1/user", userRouter);
+app.use("/api/v1/users", userRouter);
 app.use('/api/v1/zips', zipRouter);
-  
+
 
 // Middleware
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleware);
-
 
 // const port = 3000;
 const port = process.env.PORT || 3000;

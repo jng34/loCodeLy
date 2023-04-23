@@ -5,10 +5,10 @@ const ZipSchema = new mongoose.Schema({
     type:Number, 
     required:[true, 'Please provide a 5 digit number']
   },
-  cafe: {
-    default: []
+  cafes:{
+    type:[String],
+    default: undefined
   }
-
 })
 
 

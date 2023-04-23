@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const zips = require('../graphs/zipCodeGraph')
 
 const UserSchema = new mongoose.Schema({
   name:{
@@ -8,27 +9,25 @@ const UserSchema = new mongoose.Schema({
     maxLength:30
   },
   email: { 
-    type: String,
+    type:String,
     required: true,
     match: /.+\@.+\..+/,
     unique: true
   },
   zipCode:{ 
-    type:Number,
+    type:String,
     required:true,
-    // enums: Object.keys(zips),
-    // default: 10001,
-    min:5,
-    max:5
+    enum: Object.keys(zips)
   }, 
   bio:{
     type:String,
-    minLength:10,
-    maxLength:300
+    minLength:[10, "Please write a bit more. You're more interesting than that."],
+    maxLength:300,
+    default: 'coder'
   },
   techStack:{
     type:String,
-    max:300
+    maxLength:300,
   }
 })
 
