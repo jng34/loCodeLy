@@ -16,6 +16,20 @@ Frontend Deliverables
 -Create list of users in zip codes
 
 
+Criteria for Yelp API search:
+- Good for working
+- Wifi
+- Seating
+
+Return list of cafes to user
+Each cafe should include:
+-Name
+-Address (link to Google Maps)
+-URL 
+
+
+
+
 Extra Deliverables
 -Create visuals (dropped pins for users) on a map of Manhattan
 

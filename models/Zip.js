@@ -3,13 +3,14 @@ const zips = require('../graphs/zipCodeGraph')
 
 const ZipSchema = new mongoose.Schema({
   zipCode:{
-    type:Number, 
+    type:String, 
     enums: Object.keys(zips),
+    unique: true,
     required:true
   },
   cafes:{
-    type:[String],
-    default: undefined
+    type:Object,
+    default: {}
   }
 })
 

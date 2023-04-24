@@ -15,16 +15,19 @@ const zipRouter = require('./routes/zip');
 const yelp = require("yelp-fusion");
 const client = yelp.client(process.env.YELP_API);
 
-const yelpSearch = async (req, res) => {
-  const search = await client.search({
-    term: "cafe",
-    location: "new york, ny 10002",
-    attributes: "wifi_free"
+
+const businessSearch = async (req, res) => {
+  const data = await client.search({
+    term: "good for working",
+    location: "10002",
+    attributes: "cafes",
+    limit: 10
   });
-  res.status(200).json(search.jsonBody);
+  res.status(200).json(data.jsonBody);
 };
 
-app.get('/yelp', yelpSearch)
+
+app.get("/yelp", businessSearch);
 //////////////
 
 // Middleware calls

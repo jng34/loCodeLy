@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema({
   techStack:{
     type:String,
     maxLength:300,
+    default: ''
   }
 })
 
