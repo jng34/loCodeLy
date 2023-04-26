@@ -4,15 +4,15 @@ const zips = require('../graphs/zipCodeGraph')
 const UserSchema = new mongoose.Schema({
   name:{
     type:String,
-    required:true,
+    required: [true, 'Name is required.'],
     minLength:1,
     maxLength:30
   },
   email: { 
     type:String,
-    required: true,
+    required: [true, 'Email is required'],
     match: /.+\@.+\..+/,
-    unique: true
+    unique: [true, 'That email is used already.']
   },
   zipCode:{ 
     type:String,

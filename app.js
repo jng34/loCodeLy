@@ -1,14 +1,14 @@
 // Module and npm package calls
 require('dotenv').config();
 require('express-async-errors');
-
 const express = require('express');
 const app = express();
-const zipCodeGraph = require('./graphs/zipCodeGraph');
 const connectDB = require('./db/connect'); // connect to DB
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
-// const yelpSearch = require('./yelp_fusion/yelp');
+// Middleware calls
+const errorHandlerMiddleware = require('./middleware/error-handling');
+const notFoundMiddleWare = require("./middleware/not-found");
 
 
 // Test Yelp Fusion API call //
@@ -30,9 +30,6 @@ const businessSearch = async (req, res) => {
 app.get("/yelp", businessSearch);
 //////////////
 
-// Middleware calls
-const errorHandlerMiddleware = require('./middleware/error-handling');
-const notFoundMiddleWare = require("./middleware/not-found");
 
 // Allows req.body to be captured
 app.use(express.json());
@@ -42,13 +39,12 @@ app.use("/api/v1/users", userRouter);
 app.use('/api/v1/zips', zipRouter);
 
 
-// Middleware
+// Middleware functions
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleware);
 
-// const port = 3000;
-const port = process.env.PORT || 3000;
 
+const port = process.env.PORT || 3000;
 // Connect to DB and start server 
 const startServer = async () => {
   try {
@@ -57,7 +53,7 @@ const startServer = async () => {
       console.log('Server is running on port 3000')
     })
   } catch (error) {
-    console.log(error)
+    console.log('Failed to connect to db :(')
   }
 }
 

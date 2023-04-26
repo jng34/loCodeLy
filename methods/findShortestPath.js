@@ -1,13 +1,9 @@
 const graph = require('../graphs/zipCodeGraph')
 const createZipMap = require("../zipNodes/createZipMap");
 const zipMap = createZipMap();
-const createZipNode = require('../zipNodes/createZipNode')
 
 
 const findShortestPath = (zip1, zip2) => {
-  // Find zip1 in zipMap
-  // If zip1 does not exist, then return 'Enter valid zip!'
-  // else run code
   const zip1Node = zipMap.find((zip) => zip.zipCode === String(zip1))
   if (!zip1Node) return 'invalid zip code';
   zip1Node.distance = 0;
