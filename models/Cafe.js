@@ -5,16 +5,20 @@ const CafeSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
-    required: [true, "Name code is required."],
+    required: [true, "Name is required."],
   },
   address: {
     type: String,
-    required: [true, "Address code is required."],
+    required: [true, "Address is required."],
   },
   url: {
     type: String,
     required: [true, "URL is required."],
   },
+  zipCode: {
+    type: String,
+    required: [true, "Zip code is required."]
+  }
 });
 
 
