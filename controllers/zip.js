@@ -15,7 +15,6 @@ const getZip = async (req, res) => {
 }
 
 const createZip = async (req, res) => {
-  console.log(req.body)
   const zip = await Zip.create({ ...req.body });
   res.status(StatusCodes.CREATED).json(zip);
 }
@@ -39,7 +38,6 @@ const updateZip = async (req, res) => {
 
 const deleteZip = async (req, res) => {
   const { id } = req.params;
-  console.log(typeof id)
   const user = await Zip.findByIdAndDelete(id);
   if (!user) throw new Error(`No user with ${id} found.`);
   res.status(StatusCodes.OK).send("Deleted");

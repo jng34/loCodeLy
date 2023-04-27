@@ -6,6 +6,7 @@ const app = express();
 const connectDB = require('./db/connect'); // connect to DB
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
+const cafeRouter = require('./routes/cafe');
 // Middleware calls
 const errorHandlerMiddleware = require('./middleware/error-handling');
 const notFoundMiddleWare = require("./middleware/not-found");
@@ -18,12 +19,19 @@ const client = yelp.client(process.env.YELP_API);
 
 const businessSearch = async (req, res) => {
   const data = await client.search({
-    term: "good for working",
+    term: "good_for_working",
     location: "10002",
     attributes: "cafes",
     limit: 10
   });
   res.status(200).json(data.jsonBody);
+  // const data = await client.search({
+  //   term: "good for working",
+  //   location: "10002",
+  //   attributes: "cafes",
+  //   limit: 10
+  // });
+  // res.status(200).json(data.jsonBody);
 };
 
 
@@ -37,6 +45,7 @@ app.use(express.json());
 // Routes
 app.use("/api/v1/users", userRouter);
 app.use('/api/v1/zips', zipRouter);
+app.use('/api/v1/cafes', cafeRouter);
 
 
 // Middleware functions
