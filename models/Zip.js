@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require("mongoose-unique-validator");
 const zips = require('../graphs/zipCodeGraph')
 
 
@@ -21,6 +22,8 @@ const ZipSchema = new mongoose.Schema({
   //   type: mongoose.Schema.Types.Array, ref: 'User'
   // }
 })
+
+ZipSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique. {VALUE} already exists.' });
 
 
 module.exports = mongoose.model('Zip', ZipSchema);

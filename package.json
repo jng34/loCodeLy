@@ -16,6 +16,7 @@
     "express-async-errors": "^3.1.1",
     "http-status-codes": "^2.2.0",
     "mongoose": "^7.0.4",
+    "mongoose-unique-validator": "^4.0.0",
     "nodemon": "^2.0.22",
     "yelp-fusion": "^3.0.0"
   }

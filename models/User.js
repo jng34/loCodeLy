@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 const zips = require('../graphs/zipCodeGraph')
 
 const UserSchema = new mongoose.Schema({
@@ -12,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     type:String,
     required: [true, 'Email is required'],
     match: /.+\@.+\..+/,
-    unique: [true, 'That email is used already.']
+    unique: true
   },
   zipCode:{ 
     type:String,
@@ -32,7 +33,7 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-
+UserSchema.plugin(uniqueValidator, { message: 'Error, {PATH} {VALUE} is already taken.' })
 
 
 module.exports = mongoose.model('User', UserSchema);
