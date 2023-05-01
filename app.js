@@ -1,9 +1,14 @@
 // Module and npm package calls
 require('dotenv').config();
 require('express-async-errors');
-const express = require('express');
-const app = express();
-const connectDB = require('./db/connect'); // connect to DB
+const express = require('express'); // Express framework
+const app = express(); // Initialize express
+const connectDB = require('./db/connect'); //Connect to DB
+const cors = require('cors')
+// GraphQL
+const { graphqlHTTP } = require('express-graphql')
+const gqlSchema = require('./graphQL/graphQLSchema');
+// Routers
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
 const cafeRouter = require('./routes/cafe');
@@ -30,6 +35,18 @@ app.get("/yelp", businessSearch);
 
 // Allows req.body to be captured
 app.use(express.json());
+
+// Allow for cross-origin requests on APIs
+app.use(cors());
+
+// Enable GraphQL
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: gqlSchema,
+    graphiql: true,
+  })
+);
 
 // Routes
 app.use("/api/v1/users", userRouter);

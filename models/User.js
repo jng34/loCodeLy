@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     type:String,
     required:true,
     enum: Object.keys(zips)
-  }, 
+  },
   bio:{
     type:String,
     minLength:[10, "Please write a bit more. You're more interesting than that."],
@@ -30,7 +30,13 @@ const UserSchema = new mongoose.Schema({
     type:String,
     maxLength:300,
     default: ''
-  }
+  },
+  //Add zipId for graphQL -> query zipCode and list of cafes
+  // zipId:{ 
+  //   type:String,
+  //   default: 0
+  // }
+
 })
 
 UserSchema.plugin(uniqueValidator, { message: 'Error, {PATH} {VALUE} is already taken.' })

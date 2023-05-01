@@ -11,8 +11,9 @@ const ZipSchema = new mongoose.Schema({
     required:[true, 'Zip code is required.'],
     enums: Object.keys(zips),
   },
+  
+  // Might not need this if GraphQL queries do the job!
   cafes:{
-    // Array of Cafe objects
     type:Object,
     default: []
   },

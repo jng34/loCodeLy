@@ -29,7 +29,6 @@ Each cafe should include:
 
 
 
-
 Extra Deliverables
 -Create visuals (dropped pins for users) on a map of Manhattan
 
@@ -41,3 +40,7 @@ KEEP IT SIMPLE!!!
   - Upon registering a user, make call to DB to grab cafes around user zipcode
   - Additionally, add to count of available users to each zip code
 */
+
+
+GraphQL augmented.
+-Allows for customizable querying of users, zips, and cafes
