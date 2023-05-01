@@ -28,7 +28,6 @@ const updateUser = async (req, res) => {
     req.body,
     { new: true, runValidators: true }
   )
-
   res.status(StatusCodes.OK).json(user);
 }
 

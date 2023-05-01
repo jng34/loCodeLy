@@ -11,8 +11,7 @@ const cafeRouter = require('./routes/cafe');
 const errorHandlerMiddleware = require('./middleware/error-handling');
 const notFoundMiddleWare = require("./middleware/not-found");
 
-
-// Test Yelp Fusion API call //
+// Test Yelp Fusion API call
 const yelp = require("yelp-fusion");
 const client = yelp.client(process.env.YELP_API);
 
@@ -20,24 +19,14 @@ const client = yelp.client(process.env.YELP_API);
 const businessSearch = async (req, res) => {
   const data = await client.search({
     term: "good_for_working",
-    location: "10002",
+    location: "10001",
     attributes: "cafes",
     limit: 10
   });
   res.status(200).json(data.jsonBody);
-  // const data = await client.search({
-  //   term: "good for working",
-  //   location: "10002",
-  //   attributes: "cafes",
-  //   limit: 10
-  // });
-  // res.status(200).json(data.jsonBody);
 };
 
-
 app.get("/yelp", businessSearch);
-//////////////
-
 
 // Allows req.body to be captured
 app.use(express.json());
@@ -60,7 +49,7 @@ const startServer = async () => {
     await connectDB(process.env.MONGO_URI);
     console.log('Connected to MongoDB...')
     app.listen(port, () => {
-      console.log('Server is running on port 3000...')
+      console.log(`Server is running on port ${port}...`)
     })
   } catch (error) {
     console.log('Failed to connect to db :(')
