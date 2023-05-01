@@ -1,6 +1,6 @@
 ## Lo-Code-Ly ##
 
-A full stack, web application that connects coders (users) based on their zip codes and suggests cafes & coffee shops for coding meetups
+An app that connects coders (users) based on their zip codes and suggests cafes & coffee shops for coding meetups
 
 
 Backend Deliverables
