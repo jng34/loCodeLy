@@ -1,4 +1,4 @@
-## Lo-Code-Ly ##
+## LoCodely ##
 
 An app that connects coders (users) based on their zip codes and suggests cafes & coffee shops for coding meetups
 
