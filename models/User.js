@@ -30,13 +30,7 @@ const UserSchema = new mongoose.Schema({
     type:String,
     maxLength:300,
     default: ''
-  },
-  //Add zipId for graphQL -> query zipCode and list of cafes
-  // zipId:{ 
-  //   type:String,
-  //   default: 0
-  // }
-
+  }
 })
 
 UserSchema.plugin(uniqueValidator, { message: 'Error, {PATH} {VALUE} is already taken.' })

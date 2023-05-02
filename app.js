@@ -23,10 +23,10 @@ const client = yelp.client(process.env.YELP_API);
 
 const businessSearch = async (req, res) => {
   const data = await client.search({
-    term: "good_for_working",
-    location: "10001",
+    term: "good for working",
+    location: "10002",  
     attributes: "cafes",
-    limit: 10
+    limit: 5
   });
   res.status(200).json(data.jsonBody);
 };

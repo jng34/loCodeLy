@@ -12,21 +12,15 @@ const register = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   const users = await User.find({})
-  res.status(StatusCodes.OK).json(users)
+  res.status(StatusCodes.OK).json({users})
 }
 
-const updateUser = async (req, res) => {
-  const {
-    params: { id: userId },
-    body: { email, zipCode, bio, techStack }
-  } = req
-
-  if (!req.body.zipCode) throw new Error('No cafes provided');
-
-  const user = await user.findByIdAndUpdate(
-    userId,
+const updateUser = async (req, res) => { 
+  // revisit for possible error handling 
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
     req.body,
-    { new: true, runValidators: true }
+    { new: true, runValidators: true, context: 'query' }
   )
   res.status(StatusCodes.OK).json(user);
 }
@@ -35,7 +29,7 @@ const deleteUser = async (req, res) => {
   const { id } = req.params;
   const user = await User.findByIdAndDelete(id)
   if (!user) throw new Error(`No user with ${id} found.`)
-  res.status(StatusCodes.OK).send('Deleted')
+  res.status(StatusCodes.OK).send('Deleted user.')
 }
 
 module.exports = {
