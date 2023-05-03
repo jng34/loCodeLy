@@ -152,7 +152,7 @@ const Mutation = new GraphQLObjectType({
         zipCode: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        let user = new User({
+        let zip = new Zip({
           zipCode: args.zipCode
         })
         return zip.save()
