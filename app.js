@@ -16,22 +16,6 @@ const cafeRouter = require('./routes/cafe');
 const errorHandlerMiddleware = require('./middleware/error-handling');
 const notFoundMiddleWare = require("./middleware/not-found");
 
-// Test Yelp Fusion API call
-const yelp = require("yelp-fusion");
-const client = yelp.client(process.env.YELP_API);
-
-
-const businessSearch = async (req, res) => {
-  const data = await client.search({
-    term: "good for working",
-    location: "10002",  
-    attributes: "cafes",
-    limit: 5
-  });
-  res.status(200).json(data.jsonBody);
-};
-
-app.get("/yelp", businessSearch);
 
 // Allows req.body to be captured
 app.use(express.json());

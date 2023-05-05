@@ -12,17 +12,8 @@ const createCafe = async (req, res) => {
 }
 
 const updateCafe = async (req, res) => {
-  const {
-    params: { id: cafeId },
-    body: { name, address, url, zipCode }
-  } = req
-
-  if (!name || !address || !url || !zipCode) {
-    throw new Error('Please provide a name, address, url, and/or zipCode')
-  }
-
   const cafe = await Cafe.findByIdAndUpdate(
-    cafeId,
+    req.params.id,
     req.body,
     { new: true, runValidators: true, context: 'query' }
   )
