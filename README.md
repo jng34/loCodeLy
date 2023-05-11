@@ -3,6 +3,12 @@
 An app that connects coders (users) based on their zip codes and suggests cafes & coffee shops for coding meetups
 
 
+*IMPORTANT*
+You must uninstall 'express-graphql' and 'graphql' packages first
+by 'npm uninstall express-graphl' and 'npm uninstall graphql'
+Then, you must FIRST install 'express-graphql' then install 'graphql' so
+'npm install express-graphl' and only then 'npm install graphql'
+
 Backend Deliverables
  -Find shortest path from zip1 to zip2  ✔
  -Find all zip codes in shortest path between zip1 and zip2 ✔
