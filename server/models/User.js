@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
   },
   zipCode:{ 
     type:String,
-    required:true,
+    required: [true, 'ZipCode is required'],
     enum: Object.keys(zips)
   },
   bio:{

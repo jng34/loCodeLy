@@ -14,6 +14,7 @@ Frontend Deliverables
 -Create input (frontend) for searching zips
 -Create user profile
 -Create list of users in zip codes
+-Allow user to add/suggest a cafe to study (submit a request for approval)
 
 
 Criteria for Yelp API search:
@@ -44,3 +45,5 @@ KEEP IT SIMPLE!!!
 
 GraphQL augmented.
 -Allows for customizable querying of users, zips, and cafes
+
+
