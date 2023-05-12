@@ -4,7 +4,7 @@ import SignUp from './SignUp';
 
 export default function Home() {
   return (
-    <View>
+    <View style={styles.container}>
       <Login />
       <br/>
       <SignUp />
@@ -14,7 +14,6 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

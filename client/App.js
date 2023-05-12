@@ -1,9 +1,9 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
-import { StyleSheet } from 'react-native';
-import Home from './components/Home';
+import { StyleSheet, View } from 'react-native';
+import Navigator from "./components/Navigator";
 import Header from './components/Header';
+import Cafes from "./components/Cafes";
+import Users from "./components/Users";
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
@@ -11,31 +11,32 @@ const client = new ApolloClient({
 });
 
 
-client
-  .query({
-    query: gql`
-      query GetUsers {
-        users {
-          id
-          name
-          email
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
+// client
+//   .query({
+//     query: gql`
+//       query GetUsers {
+//         users {
+//           id
+//           name
+//           email
+//         }
+//       }
+//     `,
+//   })
+//   .then((result) => console.log(result));
 
-const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
+      <View>
         <Header />
-        <Stack.Navigator initialRouteName='Home'>
-          <Stack.Screen name='Home' component={Home}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+      </View>
+      <View>
+        {/* <Navigator /> */}
+        {/* <Cafes /> */}
+        <Users/>
+      </View>
     </ApolloProvider>
   );
 }
