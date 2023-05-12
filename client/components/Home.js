@@ -1,9 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
+import Login from './Login';
+import SignUp from './SignUp';
 
 export default function Home() {
   return (
     <View>
-      <Text>Welcome to LoCodely</Text>
+      <Login />
+      <br/>
+      <SignUp />
     </View>
   )
 }
