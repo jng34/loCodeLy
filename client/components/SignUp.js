@@ -1,9 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Button, View } from "react-native";
 
 export default function Home() {
   return (
     <View>
-      <Text>Sign Up</Text>
+      <Button
+        title="SignUp"
+        color="#841584"
+        onPress={() => console.log('signed up!')}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    color: 'blue'
+  }
+});
+

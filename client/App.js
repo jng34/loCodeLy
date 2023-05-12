@@ -1,14 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
+import { StyleSheet } from 'react-native';
 import Home from './components/Home';
 import Header from './components/Header';
 
+const client = new ApolloClient({
+  uri: "http://localhost:3000/graphql",
+  cache: new InMemoryCache(),
+});
+
+
+client
+  .query({
+    query: gql`
+      query GetUsers {
+        users {
+          id
+          name
+          email
+        }
+      }
+    `,
+  })
+  .then((result) => console.log(result));
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Header />
-      <Home/>
-    </View>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <Header />
+        <Stack.Navigator initialRouteName='Home'>
+          <Stack.Screen name='Home' component={Home}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApolloProvider>
   );
 }
 
