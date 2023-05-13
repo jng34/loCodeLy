@@ -10,9 +10,8 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    height: 80,
-    paddingTop:10, 
-    backgroundColor: 'coral'
+    height: 50,
+    paddingTop: 20, 
   },
   title: {
     textAlign: "center",

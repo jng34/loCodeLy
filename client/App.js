@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import Navigator from "./components/Navigator";
 import Header from './components/Header';
 import Cafes from "./components/Cafes";
-import Users from "./components/Users";
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
@@ -11,31 +10,14 @@ const client = new ApolloClient({
 });
 
 
-// client
-//   .query({
-//     query: gql`
-//       query GetUsers {
-//         users {
-//           id
-//           name
-//           email
-//         }
-//       }
-//     `,
-//   })
-//   .then((result) => console.log(result));
-
-
 export default function App() {
   return (
     <ApolloProvider client={client}>
-      <View>
+      <View style={styles.container}>
         <Header />
-      </View>
-      <View>
-        {/* <Navigator /> */}
-        {/* <Cafes /> */}
-        <Users/>
+        {/* <View style={styles.navigator}> */}
+        <Navigator />
+        {/* <Cafes/> */}
       </View>
     </ApolloProvider>
   );
@@ -47,5 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  navigator: {
+    flex: 2
   },
 });

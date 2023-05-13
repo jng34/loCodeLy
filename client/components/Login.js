@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyleSheet, Alert, TextInput, Button, View } from "react-native";
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [name, setName] = useState('');
 
   return (

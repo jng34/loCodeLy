@@ -2,24 +2,19 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native
 import { useQuery } from "@apollo/client";
 import { GET_CAFES } from "../queries/queries";
 
-export default function Cafes() {
+export default function Cafes({ navigation }) {
   const { loading, error, data } = useQuery(GET_CAFES);
-  
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>`Error! ${error.message}`</Text>;
 
-  const pressHandler = (id) => {
-
-  }
-
+  console.log(data.cafes)
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList 
-        numColumns={2}
         keyExtractor={(item) => item.id}
         data={data.cafes}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+          <TouchableOpacity onPress={() => console.log(item.id)}>
             <Text style={styles.item}>{item.name}</Text>
           </TouchableOpacity>
         )}

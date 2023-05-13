@@ -1,13 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './Login';
-import SignUp from './SignUp';
+import { StyleSheet, Button, View } from 'react-native';
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
-      <Login />
+      <Button 
+        title="Login"
+        onPress={() => navigation.navigate('Login')}
+      />
       <br/>
-      <SignUp />
+      <Button 
+        title="SignUp"
+        onPress={() => navigation.navigate('SignUp')}
+      />
+      <br/>
+      <Button 
+        title="Users"
+        onPress={() => navigation.navigate('Users')}
+        />
+      <br/>
+      <Button 
+        title="Cafes"
+        onPress={() => navigation.navigate('Cafes')}
+        />
     </View>
   )
 }
