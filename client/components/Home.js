@@ -1,24 +1,51 @@
-import { StyleSheet, Text, Button, View } from 'react-native';
-  
+import { useState } from 'react';
+import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
+import zipCodeGraph from '../../graphs/zipCodeGraph.js'
 
-export default function Home() {
+export default function Home({ navigation }) {
+  const [userZip, setUserZip] = useState('');
+  const [endZip, setEndZip] = useState('');
+  const [userZipErr, setUserZipErr] = useState(false);
+  const [endZipErr, setEndZipErr] = useState(false);
+
+  const handleSearch = () => {
+    console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
+    // Check if entered zip codes are valid or not
+    !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
+    !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
+
+    // return all zipCodes in between
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>LoCodely</Text>
       <Text style={styles.desc}>meet and code locally</Text>
       <View>
-        <Button 
-          title="Login"
-          onPress={() => navigation.navigate('Login')}
+        <TextInput
+          placeholder="Enter your zipcode..."
+          style={styles.input}
+          onChangeText={(zip) => setUserZip(zip)}
+          value={userZip}
+          inputMode="numeric"
+          keyboardType="number-pad"
+          maxLength={5}
         />
-        <br/>
-        <Button 
-          title="SignUp"
-          onPress={() => navigation.navigate('SignUp')}
+        <TextInput
+          placeholder="Enter your destination zipcode..."
+          style={styles.input}
+          onChangeText={(zip) => setEndZip(zip)}
+          value={endZip}
+          inputMode="numeric"
+          keyboardType="number-pad"
+          maxLength={5}
         />
+        <Button title="Search" onPress={handleSearch} />
+        {userZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
+        {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -36,5 +63,15 @@ const styles = StyleSheet.create({
   desc: {
     fontSize: 10,
     paddingBottom: 30
+  },
+  input: {
+    height: 40, 
+    borderColor: 'gray',
+    borderWidth: 1, 
+    marginBottom: 10
+  },
+  error: {
+    fontSize: 15,
+    color: 'red'
   }
 });

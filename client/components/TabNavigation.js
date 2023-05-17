@@ -5,6 +5,7 @@ import Home from "./Home";
 import UserProfile from "./UserProfile";
 import Users from "./Users";
 import Cafes from "./Cafes";
+import Map from "./Map"
 
 const Tab = createBottomTabNavigator();
 
@@ -28,16 +29,6 @@ export default function Navigation() {
           }}
         />
         <Tab.Screen
-          name="Profile"
-          component={UserProfile}
-          options={{
-            tabBarLabel: "Profile",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
           name="Users"
           component={Users}
           options={{
@@ -53,7 +44,27 @@ export default function Navigation() {
           options={{
             tabBarLabel: "Cafes",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="storefront" color={color} size={size} />
+              <MaterialCommunityIcons name="coffee" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Map"
+          component={Map}
+          options={{
+            tabBarLabel: "Map",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="map-marker" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={UserProfile}
+          options={{
+            tabBarLabel: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
             ),
           }}
         />
