@@ -15,6 +15,7 @@ const GET_USERS = gql`
 const GET_CAFES = gql`
   query GetCafes {
     cafes {
+      id
       name
       address
       zipCode

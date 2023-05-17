@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_USERS } from "../queries/queries";
+import { GET_USERS } from "../graphQL/queries";
 
 
-export default function Users() {
+export default function Users({ navigation }) {
   const { loading, error, data } = useQuery(GET_USERS);
   if (loading) return (<Text>Loading...</Text>);
   if (error) return <Text>`Error! ${error.message}`</Text>;
@@ -35,18 +35,18 @@ export default function Users() {
         )
       },
     )
-   };
+  };
 
   return (
     <View style={styles.container}>
       <FlatList
-        keyExtractor={(item) => item.id}
         data={data.users}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => pressHandler(item)}>
             <Text style={styles.item}>{item.name}</Text>
           </TouchableOpacity>
         )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: 40,
-    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
   item: {
     marginTop: 24,
     padding: 15,
     backgroundColor: "yellow",
-    fontSize: 16,
+    fontSize: 15,
   },
 });
