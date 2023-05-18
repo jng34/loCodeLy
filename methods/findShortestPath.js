@@ -1,12 +1,12 @@
 const graph = require('../graphs/zipCodeGraph')
 const createZipMap = require("../zipNodes/createZipMap");
-const zipMap = createZipMap();
 
 
-const findShortestPath = (zip1, zip2) => {
-  const zip1Node = zipMap.find((zip) => zip.zipCode === String(zip1))
-  if (!zip1Node) return 'invalid zip code';
-  zip1Node.distance = 0;
+const findShortestPath = (startZip, endZip) => {
+  let zipMap = createZipMap();
+  const startZipNode = zipMap.find((zip) => zip.zipCode === String(startZip))
+  if (!startZipNode) return 'invalid zip code';
+  startZipNode.distance = 0;
 
   const visitedZipsInOrder = [];
   
@@ -18,7 +18,7 @@ const findShortestPath = (zip1, zip2) => {
     currZip.isVisited = true; // Mark as visited 
     visitedZipsInOrder.push(currZip); // Add to array of visited zips in order
     
-    if (currZip.zipCode === String(zip2)) return visitedZipsInOrder;
+    if (currZip.zipCode === String(endZip)) return visitedZipsInOrder;
     // updateUnvisitedZips(currZip, zipMap);
     for (let neighbor of graph[currZip.zipCode]) {  // neighbor 10040
       // Find zip node of corresponding zip

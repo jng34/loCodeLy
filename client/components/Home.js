@@ -1,20 +1,37 @@
 import { useState } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
-import zipCodeGraph from '../../graphs/zipCodeGraph.js'
+import { createStackNavigator } from '@react-navigation/stack';
+import zipCodeGraph from '../../graphs/zipCodeGraph.js';
+import findShortestPath from '../../methods/findShortestPath.js';
+import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
+import Cafes from './Cafes.js';
+
+const Stack = createStackNavigator();
 
 export default function Home({ navigation }) {
   const [userZip, setUserZip] = useState('');
   const [endZip, setEndZip] = useState('');
   const [userZipErr, setUserZipErr] = useState(false);
   const [endZipErr, setEndZipErr] = useState(false);
+  const [zips, setZips] = useState([]);
+
+  // Method for finding shortest path between zipcodes
+  const shortestPath = (start, end) => {
+    const allZips = findShortestPath(start, end);
+    const lastZip = allZips[allZips.length - 1];
+    console.log(findZipsInBtwn(lastZip)); 
+    const shortestPathZips = findZipsInBtwn(lastZip);
+    setZips(shortestPathZips)  
+  }
 
   const handleSearch = () => {
     console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
     // Check if entered zip codes are valid or not
     !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
     !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
-
+    
     // return all zipCodes in between
+    return shortestPath(userZip, endZip)
   }
 
   return (
@@ -44,6 +61,14 @@ export default function Home({ navigation }) {
         {userZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
         {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
       </View>
+      {/* <Stack.Navigator>
+        <Stack.Screen
+          name="Cafes"
+          component={Cafes}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator> */}
+      {zips.length ? <Text>{zips}</Text> : <Text></Text>}
     </View>
   );
 }

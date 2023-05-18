@@ -10,9 +10,9 @@ const findZipsInBtwn = (endZip) => {
   return zipsInShortestPath;
 }
 
-// Test
-const allZips = findShortestPath(10002, 10014);
-const lastZip = allZips[allZips.length - 1]
-console.log(findZipsInBtwn(lastZip))
+// Test case
+// const allZips = findShortestPath(10002, 10014);
+// const lastZip = allZips[allZips.length - 1]
+// console.log(findZipsInBtwn(lastZip))
 
 module.exports = findZipsInBtwn;

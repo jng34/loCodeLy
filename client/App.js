@@ -1,6 +1,7 @@
+import 'react-native-gesture-handler'; // NEEDED TO PREVENT APP CRASH
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
 import { StyleSheet, View } from 'react-native';
-import Navigation from "./components/TabNavigation";
+import TabNavigation from "./components/TabNavigation";
 
 
 const client = new ApolloClient({
@@ -12,7 +13,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        <Navigation />
+        <TabNavigation />
       </View>
     </ApolloProvider>
   );

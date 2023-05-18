@@ -4,12 +4,12 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import Home from "./Home";
 import UserProfile from "./UserProfile";
 import Users from "./Users";
-import Cafes from "./Cafes";
-import Map from "./Map"
+import AllCafes from "./AllCafes";
+import Map from "./Map";
 
 const Tab = createBottomTabNavigator();
 
-export default function Navigation() {
+export default function TabNavigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -39,8 +39,8 @@ export default function Navigation() {
           }}
         />
         <Tab.Screen
-          name="Cafes"
-          component={Cafes}
+          name="All Cafes"
+          component={AllCafes}
           options={{
             tabBarLabel: "Cafes",
             tabBarIcon: ({ color, size }) => (
