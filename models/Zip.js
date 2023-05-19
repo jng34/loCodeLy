@@ -1,14 +1,19 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require("mongoose-unique-validator");
+const zips = require('../graphs/zipCodeGraph')
+
 
 const ZipSchema = new mongoose.Schema({
   zipCode:{
-    type:Number, 
-    required:[true, 'Please provide a 5 digit number']
-  },
-  cafes:{
-    type:Object,
-    default:[]
+    type:String, 
+    // Fix unique validation issue
+    unique: true,
+    required:[true, 'Zip code is required.'],
+    enums: Object.keys(zips),
   }
 })
 
-module.exports = ZipSchema
+ZipSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique. {VALUE} already exists.' });
+
+
+module.exports = mongoose.model('Zip', ZipSchema);

@@ -7,9 +7,25 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     msg: err.message || "Something went wrong. Try again later.",
   };
 
+  // Custom Cast error
+  if (err.name === "CastError") {
+    customError.msg = `No item found with id: ${err.value}`;
+    customError.statusCode = 404;
+  }
 
-  // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err })
-  return res.status(customError.statusCode).json({ msg: customError.msg });
+  // Custom validation error
+  if (err.name === "ValidationError") {
+    customError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+    customError.statusCode = 400;
+  }
+
+  return res
+    .status(customError.statusCode)
+    .json({ 
+      msg: customError.msg,
+      status: false 
+    });
 };
 
 module.exports = errorHandlerMiddleware;
