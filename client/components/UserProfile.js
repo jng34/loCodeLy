@@ -6,7 +6,7 @@ export default function UserProfile({ navigation }) {
       <Text>User Profile</Text>
       <View>
         <Button title="Login" onPress={() => navigation.navigate("Login")} />
-        <br />
+        {/* <br /> */}
         <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
       </View>
     </View>

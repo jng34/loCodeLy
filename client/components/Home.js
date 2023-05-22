@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import zipCodeGraph from '../../graphs/zipCodeGraph.js';
-import findShortestPath from '../../methods/findShortestPath.js';
-import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
+// import zipCodeGraph from '../../graphs/zipCodeGraph.js';
+// import findShortestPath from '../../methods/findShortestPath.js';
+// import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
 import Cafes from './Cafes.js';
 
-const Stack = createStackNavigator();
+// const Stack = createStackNavigator();
 
 export default function Home({ navigation }) {
   const [userZip, setUserZip] = useState('');
@@ -16,23 +16,23 @@ export default function Home({ navigation }) {
   const [zips, setZips] = useState([]);
 
   // Method for finding shortest path between zipcodes
-  const shortestPath = (start, end) => {
-    const allZips = findShortestPath(start, end);
-    const lastZip = allZips[allZips.length - 1];
-    console.log(findZipsInBtwn(lastZip)); 
-    const shortestPathZips = findZipsInBtwn(lastZip);
-    setZips(shortestPathZips)  
-  }
+  // const shortestPath = (start, end) => {
+  //   const allZips = findShortestPath(start, end);
+  //   const lastZip = allZips[allZips.length - 1];
+  //   console.log(findZipsInBtwn(lastZip)); 
+  //   const shortestPathZips = findZipsInBtwn(lastZip);
+  //   setZips(shortestPathZips)  
+  // }
 
-  const handleSearch = () => {
-    console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
-    // Check if entered zip codes are valid or not
-    !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
-    !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
+  // const handleSearch = () => {
+  //   console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
+  //   // Check if entered zip codes are valid or not
+  //   !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
+  //   !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
     
-    // return all zipCodes in between
-    return shortestPath(userZip, endZip)
-  }
+  //   // return all zipCodes in between
+  //   return shortestPath(userZip, endZip)
+  // }
 
   return (
     <View style={styles.container}>
@@ -57,7 +57,7 @@ export default function Home({ navigation }) {
           keyboardType="number-pad"
           maxLength={5}
         />
-        <Button title="Search" onPress={handleSearch} />
+        <Button title="Search" onPress={()=>console.log('hello')} />
         {userZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
         {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
       </View>

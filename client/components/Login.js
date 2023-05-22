@@ -11,13 +11,13 @@ export default function Login({ navigation }) {
         onChangeText={text => setName(text)} 
         placeholder='e.g. John...'
       />
-      <br/>
+      {/* <br/> */}
       <Button
         title="Login"
         color="#841584"
         onPress={() => console.log(name)}
       />
-      <br/>
+      {/* <br/> */}
       <Button
         title="Go Back"
         color="blue"
