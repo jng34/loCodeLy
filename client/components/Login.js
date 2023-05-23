@@ -2,26 +2,30 @@ import { useState } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from "react-native";
 
 export default function Login({ navigation }) {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
       <TextInput 
         style={styles.input} 
-        onChangeText={text => setName(text)} 
-        placeholder='e.g. John...'
+        onChangeText={text => setEmail(text)} 
+        placeholder='email...'
       />
-      {/* <br/> */}
+      <TextInput 
+        style={styles.input} 
+        onChangeText={text => setPassword(text)} 
+        placeholder='password...'
+      />
       <Button
         title="Login"
         color="#841584"
-        onPress={() => console.log(name)}
+        onPress={() => console.log(email, password)}
       />
-      {/* <br/> */}
       <Button
-        title="Go Back"
+        title="SignUp"
         color="blue"
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate("SignUp")}
       />
     </View>
   );

@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import Home from "./Home";
-import UserProfile from "./UserProfile";
+import UserProfileStack from "./UserProfile";
 import Users from "./Users";
 import AllCafes from "./AllCafes";
 import Map from "./Map";
@@ -15,6 +15,9 @@ export default function TabNavigation() {
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: true,
+          tabBarLabelPosition: "below-icon",
           tabBarActiveTintColor: "#e91e63",
         }}
       >
@@ -60,7 +63,7 @@ export default function TabNavigation() {
         />
         <Tab.Screen
           name="Profile"
-          component={UserProfile}
+          component={UserProfileStack}
           options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color, size }) => (

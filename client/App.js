@@ -2,7 +2,6 @@ import 'react-native-gesture-handler'; // NEEDED TO PREVENT APP CRASH
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
 import { StyleSheet, View } from 'react-native';
 import TabNavigation from "./components/TabNavigation";
-import Home from './components/Home';
 
 
 const client = new ApolloClient({
