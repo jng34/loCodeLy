@@ -4,7 +4,7 @@ require('express-async-errors');
 const express = require('express'); // Express framework
 const app = express(); // Initialize express
 const connectDB = require('./db/connect'); //Connect to DB
-const cors = require('cors')
+const cors = require('cors');
 // GraphQL
 const { graphqlHTTP } = require('express-graphql')
 const gqlSchema = require('./graphQL/graphQLSchema');
@@ -13,6 +13,7 @@ const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
 const cafeRouter = require('./routes/cafe');
 // Middleware calls
+const authenticateUser = require('./middleware/authentication');
 const errorHandlerMiddleware = require('./middleware/error-handling');
 const notFoundMiddleWare = require("./middleware/not-found");
 
@@ -34,7 +35,7 @@ app.use(
 
 // Routes
 app.use("/api/v1/users", userRouter);
-app.use('/api/v1/zips', zipRouter);
+app.use('/api/v1/zips', authenticateUser, zipRouter);
 app.use('/api/v1/cafes', cafeRouter);
 
 
