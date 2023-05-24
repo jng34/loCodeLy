@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { StyleSheet, Button, Text, TextInput, View } from "react-native";
+import { useMutation } from '@apollo/client';
+import { SIGN_UP_USER } from '../graphQL/queries';
 
 export default function SignUp({ navigation }) {
+  // Form components
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -9,6 +12,27 @@ export default function SignUp({ navigation }) {
   const [zipCode, setZipCode] = useState('')
   const [techStack, setTechStack] = useState('')
   const [bio, setBio] = useState('')
+
+  // GraphQL mutation
+  const [addUser, { data, loading, error }] = useMutation(SIGN_UP_USER);
+  
+  if (loading) return 'Submitting...';
+  if (error) return `Submission error! ${error.message}`;
+
+  const handleSubmit = () => {
+    addUser({
+      variables: {
+        name,
+        email,
+        password,
+        zipCode,
+        techStack, 
+        bio
+      }
+    })
+    console.log('Registered user!')
+  }
+
 
   return (
     <View style={styles.container}>
@@ -51,7 +75,7 @@ export default function SignUp({ navigation }) {
       <Button
         title="Sign Up"
         color="#841584"
-        onPress={() => console.log('Registered user!')}
+        onPress={handleSubmit}
       />
 
       <Text>Already a user?</Text>

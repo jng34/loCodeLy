@@ -119,7 +119,6 @@ const RootQuery = new GraphQLObjectType({
 });
 
 
-// GraphQL queries - POST reqs
 // Hooked up to frontend
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -130,6 +129,7 @@ const Mutation = new GraphQLObjectType({
       args:{
         name: { type: new GraphQLNonNull(GraphQLString) },
         email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
         zipCode: { type: new GraphQLNonNull(GraphQLString) },
         bio: { type: new GraphQLNonNull(GraphQLString) },
         techStack: { type: new GraphQLNonNull(GraphQLString) },
@@ -138,6 +138,7 @@ const Mutation = new GraphQLObjectType({
         let user = new User({
           name: args.name,
           email: args.email,
+          password: args.password,
           zipCode: args.zipCode,
           bio: args.bio,
           techStack: args.techStack
