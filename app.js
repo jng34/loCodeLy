@@ -28,7 +28,13 @@ app.use(
   })
 );
 app.use(express.json()); // Allows req.body to be captured
-app.use(helmet());
+app.use(
+  helmet({
+    // Allow graphiql access
+    contentSecurityPolicy:
+      process.env.NODE_ENV === "production" ? undefined : false,
+  })
+);
 app.use(cors()); // Allow for cross-origin requests on APIs
 app.use(xss());
 
