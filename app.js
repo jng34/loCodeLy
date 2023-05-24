@@ -4,7 +4,11 @@ require('express-async-errors');
 const express = require('express'); // Express framework
 const app = express(); // Initialize express
 const connectDB = require('./db/connect'); //Connect to DB
+// Security packages
+const helmet = require('helmet');
 const cors = require('cors');
+const xss = require('xss-clean');
+const rateLimiter = require('express-rate-limit');
 // GraphQL
 const { graphqlHTTP } = require('express-graphql')
 const gqlSchema = require('./graphQL/graphQLSchema');
@@ -17,12 +21,16 @@ const authenticateUser = require('./middleware/authentication');
 const errorHandlerMiddleware = require('./middleware/error-handling');
 const notFoundMiddleWare = require("./middleware/not-found");
 
-
-// Allows req.body to be captured
-app.use(express.json());
-
-// Allow for cross-origin requests on APIs
-app.use(cors());
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 min
+    max: 100,
+  })
+);
+app.use(express.json()); // Allows req.body to be captured
+app.use(helmet());
+app.use(cors()); // Allow for cross-origin requests on APIs
+app.use(xss());
 
 // Enable GraphQL
 app.use(
