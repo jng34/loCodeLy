@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, Text, Button, View } from "react-native";
+import { StyleSheet, TextInput, Button, View } from "react-native";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Button, Text, TextInput, View } from "react-native";
 import { useMutation } from '@apollo/client';
-import { SIGN_UP_USER } from '../graphQL/queries';
+import { SIGN_UP_USER, GET_SINGLE_USER } from '../graphQL/queries';
+import Profile from './Profile';
+
 
 export default function SignUp({ navigation }) {
   // Form components
@@ -16,8 +18,11 @@ export default function SignUp({ navigation }) {
   // GraphQL mutation
   const [addUser, { data, loading, error }] = useMutation(SIGN_UP_USER);
   
-  if (loading) return 'Submitting...';
-  if (error) return `Submission error! ${error.message}`;
+  useEffect(() => {
+    console.log(data)
+    console.log(loading)
+    console.log(error)
+  }, [data, loading, error])
 
   const handleSubmit = () => {
     addUser({
@@ -30,53 +35,64 @@ export default function SignUp({ navigation }) {
         bio
       }
     })
-    console.log('Registered user!')
+    if (data) (() => navigation.navigate('Profile'))()
   }
 
 
   return (
     <View style={styles.container}>
-      <Text>Sign Up Form</Text>
+      {error ? <Text style={styles.errMsg}>Submission error! {error.message}</Text> : <></>}
+      <Text style={styles.header}>Sign Up Form</Text>
       <TextInput 
         style={styles.input} 
         onChangeText={text => setName(text)} 
         placeholder='Name...'
-      />
+        />
+      <Text style={styles.errMsg}></Text>
       <TextInput 
         style={styles.input} 
         onChangeText={text => setEmail(text)} 
         placeholder='Email...'
-      />
+        />
       <TextInput 
         style={styles.input} 
+        secureTextEntry={true}
         onChangeText={text => setPassword(text)} 
         placeholder='Password...'
-      />
+        />
+      <Text style={styles.errMsg}></Text>
       <TextInput 
         style={styles.input} 
+        secureTextEntry={true}
         onChangeText={text => setConfirmPW(text)} 
         placeholder='Confirm password...'
-      />
+        />
+      <Text style={styles.errMsg}></Text>
       <TextInput 
         style={styles.input} 
         onChangeText={text => setZipCode(text)} 
         placeholder='Zip Code...'
-      />
+        />
+      <Text style={styles.errMsg}></Text>
       <TextInput 
         style={styles.input} 
         onChangeText={text => setTechStack(text)} 
         placeholder='Tech Stack...'
-      />
+        />
+      <Text style={styles.errMsg}></Text>
       <TextInput 
         style={styles.input} 
         onChangeText={text => setBio(text)} 
         placeholder='Bio...'
-      />
+        />
+      <Text style={styles.errMsg}></Text>
       <Button
         title="Sign Up"
         color="#841584"
         onPress={handleSubmit}
-      />
+        />
+      {loading ? <Text>Submitting...</Text> : <></>} 
+      <Text style={styles.errMsg}></Text>
 
       <Text>Already a user?</Text>
       <Button
@@ -84,6 +100,7 @@ export default function SignUp({ navigation }) {
         color="orange"
         onPress={() => navigation.navigate('Login')}
       />
+      {/* <Text>{data}</Text> */}
     </View>
   );
 }
@@ -94,11 +111,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  header: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
   input: {
+    width: 300,
+    height: 40,
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: '#ccc',
     borderWidth: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginBottom: 10
+    borderRadius: 15, 
+    fontSize: 16,
+  },
+  errMsg: {
+    color: 'red',
+    fontSize: 20
   }
 });
 

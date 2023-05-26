@@ -4,11 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 // import zipCodeGraph from '../../graphs/zipCodeGraph.js';
 // import findShortestPath from '../../methods/findShortestPath.js';
 // import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
-import Cafes from './Cafes.js';
 
 // const Stack = createStackNavigator();
 
-export default function Home({ navigation }) {
+export default function Home() {
   const [userZip, setUserZip] = useState('');
   const [endZip, setEndZip] = useState('');
   const [userZipErr, setUserZipErr] = useState(false);
