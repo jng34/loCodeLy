@@ -6,6 +6,7 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import CredentialsStack from './components/Credentials';
+import HomeStack from './components/HomeStack';
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
@@ -16,7 +17,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        <SignUp />
+        <TabNavigation />
       </View>
     </ApolloProvider>
   );

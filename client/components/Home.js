@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-// import zipCodeGraph from '../../graphs/zipCodeGraph.js';
-// import findShortestPath from '../../methods/findShortestPath.js';
-// import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
+import zipCodeGraph from '../../graphs/zipCodeGraph.js';
+import findShortestPath from '../../methods/findShortestPath.js';
+import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
 
-// const Stack = createStackNavigator();
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [userZip, setUserZip] = useState('');
   const [endZip, setEndZip] = useState('');
   const [userZipErr, setUserZipErr] = useState(false);
@@ -15,31 +13,33 @@ export default function Home() {
   const [zips, setZips] = useState([]);
 
   // Method for finding shortest path between zipcodes
-  // const shortestPath = (start, end) => {
-  //   const allZips = findShortestPath(start, end);
-  //   const lastZip = allZips[allZips.length - 1];
-  //   console.log(findZipsInBtwn(lastZip)); 
-  //   const shortestPathZips = findZipsInBtwn(lastZip);
-  //   setZips(shortestPathZips)  
-  // }
+  const shortestPath = (start, end) => {
+    const allZips = findShortestPath(start, end);
+    const lastZip = allZips[allZips.length - 1];
+    console.log(findZipsInBtwn(lastZip)); 
+    const shortestPathZips = findZipsInBtwn(lastZip);
+    setZips(shortestPathZips)  
+  }
 
-  // const handleSearch = () => {
-  //   console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
-  //   // Check if entered zip codes are valid or not
-  //   !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
-  //   !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
+  const handleSearch = () => {
+    console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
+    // Check if entered zip codes are valid or not
+    !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
+    !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
     
-  //   // return all zipCodes in between
-  //   return shortestPath(userZip, endZip)
-  // }
+    // return all zipCodes in between
+    shortestPath(userZip, endZip)
+  }
+
+  console.log(zips)
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>LoCodely</Text>
-      <Text style={styles.desc}>meet and code locally</Text>
-      <View>
+      <Text style={styles.description}>meet and code locally</Text>
+      <View style={styles.space}>
         <TextInput
-          placeholder="Enter your zipcode..."
+          placeholder="Starting zipcode..."
           style={styles.input}
           onChangeText={(zip) => setUserZip(zip)}
           value={userZip}
@@ -47,8 +47,10 @@ export default function Home() {
           keyboardType="number-pad"
           maxLength={5}
         />
+      </View>
+      <View style={styles.space}>
         <TextInput
-          placeholder="Enter your destination zipcode..."
+          placeholder="Ending zipcode..."
           style={styles.input}
           onChangeText={(zip) => setEndZip(zip)}
           value={endZip}
@@ -56,17 +58,15 @@ export default function Home() {
           keyboardType="number-pad"
           maxLength={5}
         />
-        <Button title="Search" onPress={()=>console.log('hello')} />
-        {userZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
-        {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
       </View>
-      {/* <Stack.Navigator>
-        <Stack.Screen
-          name="Cafes"
-          component={Cafes}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator> */}
+      <View style={styles.space}>
+        <Button title="Search" onPress={handleSearch} />
+      </View>
+      <View style={styles.space}>
+        <Button title="Go To Cafes" onPress={() => navigation.navigate("Cafes", { zips })} /> 
+      </View>
+      {userZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
+      {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
       {zips.length ? <Text>{zips}</Text> : <Text></Text>}
     </View>
   );
@@ -84,18 +84,27 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
   },
-  desc: {
+  description: {
     fontSize: 10,
-    paddingBottom: 30
+    marginBottom: 15,
   },
   input: {
-    height: 40, 
-    borderColor: 'gray',
-    borderWidth: 1, 
-    marginBottom: 10
+    width: 300,
+    height: 40,
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 15, 
+    fontSize: 16,
   },
   error: {
     fontSize: 15,
     color: 'red'
+  },
+  space: {
+    marginTop: 5,
+    marginBottom: 5,
   }
 });

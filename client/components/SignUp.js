@@ -117,7 +117,6 @@ export default function SignUp({ navigation }) {
           onPress={() => navigation.navigate('Login')}
         />
       </View>
-      {/* <Text>{data}</Text> */}
     </View>
   );
 }
@@ -148,8 +147,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   space: {
-    paddingTop: 10,
-    paddingBottom: 10
+    marginTop: 10,
+    marginBottom: 10
   }
 });
 

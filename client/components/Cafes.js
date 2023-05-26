@@ -2,7 +2,9 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native
 import { useQuery } from "@apollo/client";
 import { GET_CAFES } from "../graphQL/queries";
 
-export default function Cafes({ navigation }) {
+export default function Cafes({ route, navigation }) {
+  // Destructure params passed from Home
+  const { zips } = route.params;
 
   const pressHandler = ({ id, name, address, url, zipCode }) => {
     console.log(id, name, address, url, zipCode);

@@ -11,9 +11,9 @@ export default function CredentialsStack() {
       initialRouteName='Credentials'
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
-      <Stack.Screen name="Login" component={Login}></Stack.Screen>
-      <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
     </Stack.Navigator>
   )
 }

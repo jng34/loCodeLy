@@ -6,6 +6,7 @@ import Users from "./Users";
 import AllCafes from "./AllCafes";
 import Map from "./Map";
 import CredentialsStack from "./CredentialsStack";
+import HomeStack from "./HomeStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ export default function TabNavigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="HomeStack"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: true,
@@ -22,8 +23,8 @@ export default function TabNavigation() {
         }}
       >
         <Tab.Screen
-          name="Home"
-          component={Home}
+          name="HomeStack"
+          component={HomeStack}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (

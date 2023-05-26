@@ -58,10 +58,6 @@ const styles = StyleSheet.create({
     borderRadius: 15, 
     fontSize: 16,
   },
-  button: {
-    marginTop: 15,
-    marginBottom: 15
-  },
   space: {
     paddingTop: 10,
     paddingBottom: 10
