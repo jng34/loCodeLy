@@ -43,49 +43,64 @@ export default function SignUp({ navigation }) {
     <View style={styles.container}>
       {error ? <Text style={styles.errMsg}>Submission error! {error.message}</Text> : <></>}
       <Text style={styles.header}>Sign Up Form</Text>
-      <TextInput 
-        style={styles.input} 
-        onChangeText={text => setName(text)} 
-        placeholder='Name...'
-        />
-      <Text style={styles.errMsg}></Text>
-      <TextInput 
-        style={styles.input} 
-        onChangeText={text => setEmail(text)} 
-        placeholder='Email...'
-        />
-      <TextInput 
-        style={styles.input} 
-        secureTextEntry={true}
-        onChangeText={text => setPassword(text)} 
-        placeholder='Password...'
-        />
-      <Text style={styles.errMsg}></Text>
-      <TextInput 
-        style={styles.input} 
-        secureTextEntry={true}
-        onChangeText={text => setConfirmPW(text)} 
-        placeholder='Confirm password...'
-        />
-      <Text style={styles.errMsg}></Text>
-      <TextInput 
-        style={styles.input} 
-        onChangeText={text => setZipCode(text)} 
-        placeholder='Zip Code...'
-        />
-      <Text style={styles.errMsg}></Text>
-      <TextInput 
-        style={styles.input} 
-        onChangeText={text => setTechStack(text)} 
-        placeholder='Tech Stack...'
-        />
-      <Text style={styles.errMsg}></Text>
-      <TextInput 
-        style={styles.input} 
-        onChangeText={text => setBio(text)} 
-        placeholder='Bio...'
-        />
-      <Text style={styles.errMsg}></Text>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={text => setName(text)} 
+          placeholder='Name...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={text => setEmail(text)} 
+          placeholder='Email...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          secureTextEntry={true}
+          onChangeText={text => setPassword(text)} 
+          placeholder='Password...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          secureTextEntry={true}
+          onChangeText={text => setConfirmPW(text)} 
+          placeholder='Confirm password...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={text => setZipCode(text)} 
+          placeholder='Zip Code...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={text => setTechStack(text)} 
+          placeholder='Tech Stack...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
+      <View style={styles.space}>
+        <TextInput 
+          style={styles.input} 
+          onChangeText={text => setBio(text)} 
+          placeholder='Bio...'
+          />
+        <Text style={styles.errMsg}></Text>
+      </View>
       <Button
         title="Sign Up"
         color="#841584"
@@ -94,12 +109,14 @@ export default function SignUp({ navigation }) {
       {loading ? <Text>Submitting...</Text> : <></>} 
       <Text style={styles.errMsg}></Text>
 
-      <Text>Already a user?</Text>
-      <Button
-        title="Login"
-        color="orange"
-        onPress={() => navigation.navigate('Login')}
-      />
+      <View style={styles.space}>
+        <Text>Already a user?</Text>
+        <Button
+          title="Login"
+          color="orange"
+          onPress={() => navigation.navigate('Login')}
+        />
+      </View>
       {/* <Text>{data}</Text> */}
     </View>
   );
@@ -129,6 +146,10 @@ const styles = StyleSheet.create({
   errMsg: {
     color: 'red',
     fontSize: 20
+  },
+  space: {
+    paddingTop: 10,
+    paddingBottom: 10
   }
 });
 

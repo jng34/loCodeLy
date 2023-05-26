@@ -16,7 +16,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        <TabNavigation />
+        <SignUp />
       </View>
     </ApolloProvider>
   );
