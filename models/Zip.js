@@ -6,7 +6,6 @@ const zips = require('../graphs/zipCodeGraph')
 const ZipSchema = new mongoose.Schema({
   zipCode:{
     type:String, 
-    // Fix unique validation issue
     unique: true,
     required:[true, 'Zip code is required.'],
     enums: Object.keys(zips),

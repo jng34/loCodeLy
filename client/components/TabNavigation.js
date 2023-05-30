@@ -1,12 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import Home from "./Home";
+import HomeStack from "./HomeStack";
 import Users from "./Users";
-import AllCafes from "./AllCafes";
 import Map from "./Map";
 import CredentialsStack from "./CredentialsStack";
-import HomeStack from "./HomeStack";
+import Cafes from "./Cafes";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,8 +42,8 @@ export default function TabNavigation() {
           }}
         />
         <Tab.Screen
-          name="All Cafes"
-          component={AllCafes}
+          name="Cafes"
+          component={Cafes}
           options={{
             tabBarLabel: "Cafes",
             tabBarIcon: ({ color, size }) => (

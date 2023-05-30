@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_CAFES } from "../graphQL/queries";
+import { GET_CAFES_IN_ZIP } from "../graphQL/queries";
 
 export default function Cafes({ route, navigation }) {
   // Destructure params passed from Home
-  const { zips } = route.params;
+  // const { zips } = route.params;
 
   const pressHandler = ({ id, name, address, url, zipCode }) => {
     console.log(id, name, address, url, zipCode);
@@ -24,18 +24,27 @@ export default function Cafes({ route, navigation }) {
           Alert.alert("This was dismissed by tapping outside alert dialog"),
       }
     );
-  };
+  };  
 
-  const { loading, error, data } = useQuery(GET_CAFES);
+  const zipsArray = [
+    {zipCode: "10031"}, 
+    {zipCode: "10002"},
+    {zipCode: "10038"},
+    {zipCode: "10035"},
+  ];
+  const { loading, error, data } = useQuery(GET_CAFES_IN_ZIP, {
+    variables: { zipsArray }
+  });
+
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>`Error! ${error.message}`</Text>;
 
-  console.log(data.cafes)
+  console.log(data)
   return (
     <View style={styles.container}>
       <FlatList 
         keyExtractor={item => item.id}
-        data={data.cafes}
+        data={data.zip.cafes}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => pressHandler(item)}>
             <Text style={styles.item}>{item.name}</Text>

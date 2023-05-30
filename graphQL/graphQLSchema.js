@@ -5,6 +5,7 @@ const Zip = require('../models/Zip')
 const Cafe = require('../models/Cafe')
 const {
   GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLString,
   GraphQLID,
   GraphQLList,
@@ -52,6 +53,14 @@ const ZipType = new GraphQLObjectType({
   })
 });
 
+// GraphQL INPUT Object for array of inputs - BATCH QUERY 
+const ZipInput = new GraphQLInputObjectType({
+  name: "ZipInput",
+  fields: {
+    zipCode: { type: GraphQLString }
+  }
+})
+
 const CafeType = new GraphQLObjectType({
   name: "Cafe",
   fields: () => ({
@@ -64,9 +73,10 @@ const CafeType = new GraphQLObjectType({
 });
 
 
+
 // GraphQL queries - GET reqs
-const RootQuery = new GraphQLObjectType({
-  name: "RootQueryType",
+const Query = new GraphQLObjectType({
+  name: "Query",
   fields: {
     user:{
       type: UserType,
@@ -78,7 +88,6 @@ const RootQuery = new GraphQLObjectType({
 
     users: {
       type: new GraphQLList(UserType),
-      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return User.find({});
       },
@@ -86,17 +95,21 @@ const RootQuery = new GraphQLObjectType({
 
     zip: {
       type: ZipType,
-      args: { id: { type: GraphQLID } },
-      resolve(parent, args) {
-        return Zip.findById(args.id);
+      args: { zipCode: { type: GraphQLString } },
+      resolve(parent, { zipCode }) {
+        return Zip.findOne({ zipCode });
       },
     },
-
+    
     zips: {
       type: new GraphQLList(ZipType),
-      args: { id: { type: GraphQLID } },
-      resolve(parent, args) {
-        return Zip.find({});
+      args: { zipsArray: { type: new GraphQLList(ZipInput) } }, // Must accept GraphQL Input Object Type
+      resolve(parent, { zipsArray }) {
+        let zipObj = [];
+        for (let { zipCode } of zipsArray) {
+          zipObj.push(Zip.findOne({ zipCode }))
+        }
+        return zipObj;
       },
     },
 
@@ -110,7 +123,6 @@ const RootQuery = new GraphQLObjectType({
 
     cafes: {
       type: new GraphQLList(CafeType),
-      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return Cafe.find({});
       },
@@ -183,6 +195,6 @@ const Mutation = new GraphQLObjectType({
 
 
 module.exports = new GraphQLSchema({
-  query: RootQuery,
+  query: Query,
   mutation: Mutation
 })

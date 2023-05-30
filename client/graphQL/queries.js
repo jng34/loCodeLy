@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const GET_SINGLE_USER = gql`
-  query GetSingleUser {
-    user (id: $id) {
+  query($id: ID!) {
+    user(id: $id) {
       id
       name
       email
@@ -25,6 +25,34 @@ const GET_USERS = gql`
     }
   }
 `
+// const GET_CAFES_IN_ZIP = gql`
+//   query ($zipCodes: [String!]!) {
+//     zips (zipCodes: $zipCode) {
+//       zipCode
+//       cafes {
+//         id
+//         name
+//         address
+//         zipCode
+//         url
+//       }
+//     }
+//   }
+// `
+const GET_CAFES_IN_ZIP = gql`
+  query ($zipsArray: [String!]!) {
+    zips (zipsArray: $zipsArray) {
+      cafes {
+        id
+        name
+        address
+        zipCode
+        url
+      }
+    }
+  }
+`
+
 const GET_CAFES = gql`
   query GetCafes {
     cafes {
@@ -49,4 +77,4 @@ const SIGN_UP_USER = gql`
   }
 `
 
-export { GET_SINGLE_USER, GET_USERS, GET_CAFES, SIGN_UP_USER }
+export { GET_SINGLE_USER, GET_USERS, GET_CAFES_IN_ZIP, GET_CAFES, SIGN_UP_USER }
