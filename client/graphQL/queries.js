@@ -25,22 +25,9 @@ const GET_USERS = gql`
     }
   }
 `
-// const GET_CAFES_IN_ZIP = gql`
-//   query ($zipCodes: [String!]!) {
-//     zips (zipCodes: $zipCode) {
-//       zipCode
-//       cafes {
-//         id
-//         name
-//         address
-//         zipCode
-//         url
-//       }
-//     }
-//   }
-// `
-const GET_CAFES_IN_ZIP = gql`
-  query ($zipsArray: [String!]!) {
+
+const GET_CAFES_IN_ZIPS = gql`
+  query ($zipsArray: [ZipInput!]! ) {
     zips (zipsArray: $zipsArray) {
       cafes {
         id
@@ -77,4 +64,4 @@ const SIGN_UP_USER = gql`
   }
 `
 
-export { GET_SINGLE_USER, GET_USERS, GET_CAFES_IN_ZIP, GET_CAFES, SIGN_UP_USER }
+export { GET_SINGLE_USER, GET_USERS, GET_CAFES_IN_ZIPS, GET_CAFES, SIGN_UP_USER }

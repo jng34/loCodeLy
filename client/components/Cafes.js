@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_CAFES_IN_ZIP } from "../graphQL/queries";
+import { GET_CAFES_IN_ZIPS, GET_CAFES } from "../graphQL/queries";
 
 export default function Cafes({ route, navigation }) {
   // Destructure params passed from Home
@@ -32,23 +32,31 @@ export default function Cafes({ route, navigation }) {
     {zipCode: "10038"},
     {zipCode: "10035"},
   ];
-  const { loading, error, data } = useQuery(GET_CAFES_IN_ZIP, {
-    variables: { zipsArray }
+
+  const { loading, error, data } = useQuery(GET_CAFES_IN_ZIPS, {
+    variables: { zipsArray: zipsArray }
   });
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>`Error! ${error.message}`</Text>;
 
-  console.log(data)
+  // data - nested objects
+  let allCafes = [];
+  for (let { cafes } of data.zips) {
+    allCafes.push(...cafes)
+  }
+  console.log(allCafes)
+
   return (
     <View style={styles.container}>
       <FlatList 
         keyExtractor={item => item.id}
-        data={data.zip.cafes}
+        data={allCafes}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => pressHandler(item)}>
             <Text style={styles.item}>{item.name}</Text>
             <Text>{item.address}</Text>
+            <Text>{item.zipCode}</Text>
           </TouchableOpacity>
         )}
       />
