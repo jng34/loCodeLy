@@ -1,37 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
 import zipCodeGraph from '../../graphs/zipCodeGraph.js';
-import findShortestPath from '../../methods/findShortestPath.js';
-import findZipsInBtwn from '../../methods/findZipsInBtwn.js';
-
+import findAllZipsInShortestPath from '../../methods/findAllZipsInShortestPath.js';
 
 export default function Home({ navigation }) {
-  const [userZip, setUserZip] = useState('');
+  const [startZip, setStartZip] = useState('');
   const [endZip, setEndZip] = useState('');
-  const [userZipErr, setUserZipErr] = useState(false);
+  const [startZipErr, setStartZipErr] = useState(false);
   const [endZipErr, setEndZipErr] = useState(false);
-  const [zips, setZips] = useState([]);
+  const [zipsArray, setZipsArray] = useState([]);
 
   // Method for finding shortest path between zipcodes
-  const shortestPath = (start, end) => {
-    const allZips = findShortestPath(start, end);
-    const lastZip = allZips[allZips.length - 1];
-    console.log(findZipsInBtwn(lastZip)); 
-    const shortestPathZips = findZipsInBtwn(lastZip);
-    setZips(shortestPathZips)  
-  }
+  // const shortestPath = (start, end) => {
+  //   const allZips = findShortestPath(start, end);
+  //   const lastZip = allZips[allZips.length - 1];
+  //   const shortestPathZips = findZipsInBtwn(lastZip);
+  //   setZipsArray(shortestPathZips)  
+  // }
 
-  const handleSearch = () => {
-    console.log(`Query submitted for starting zip ${userZip} and ending zip ${endZip}.`)
+  const handleZipSearch = () => {
+    console.log(`Query submitted for starting zip ${startZip} and ending zip ${endZip}.`)
     // Check if entered zip codes are valid or not
-    !(userZip in zipCodeGraph) ? setUserZipErr(true) : setUserZipErr(false)
-    !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false);
+    !(startZip in zipCodeGraph) ? setStartZipErr(true) : setStartZipErr(false)
+    !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false)
     
-    // return all zipCodes in between
-    shortestPath(userZip, endZip)
+    if (startZip in zipCodeGraph && endZip in zipCodeGraph) {
+      // return all zipCodes in between
+      const zipsInShortestPath = findAllZipsInShortestPath(startZip, endZip);
+      setZipsArray(zipsInShortestPath);
+    }
   }
 
-  console.log(zips)
 
   return (
     <View style={styles.container}>
@@ -39,10 +38,10 @@ export default function Home({ navigation }) {
       <Text style={styles.description}>meet and code locally</Text>
       <View style={styles.space}>
         <TextInput
-          placeholder="Starting zipcode..."
+          placeholder="Starting zip code"
           style={styles.input}
-          onChangeText={(zip) => setUserZip(zip)}
-          value={userZip}
+          onChangeText={(zip) => setStartZip(zip)}
+          value={startZip}
           inputMode="numeric"
           keyboardType="number-pad"
           maxLength={5}
@@ -50,7 +49,7 @@ export default function Home({ navigation }) {
       </View>
       <View style={styles.space}>
         <TextInput
-          placeholder="Ending zipcode..."
+          placeholder="Ending zip code"
           style={styles.input}
           onChangeText={(zip) => setEndZip(zip)}
           value={endZip}
@@ -60,14 +59,13 @@ export default function Home({ navigation }) {
         />
       </View>
       <View style={styles.space}>
-        <Button title="Search" onPress={handleSearch} />
+        <Button title="Search" onPress={handleZipSearch} />
       </View>
       <View style={styles.space}>
-        <Button title="Go To Cafes" onPress={() => navigation.navigate("Cafes", { zips })} /> 
+        <Button title="Go To Cafes" onPress={() => navigation.navigate("Cafes", { zipsArray })} /> 
       </View>
-      {userZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
+      {startZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
       {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
-      {zips.length ? <Text>{zips}</Text> : <Text></Text>}
     </View>
   );
 }

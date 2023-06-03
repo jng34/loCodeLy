@@ -6,7 +6,6 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import CredentialsStack from './components/Credentials';
-import HomeStack from './components/HomeStack';
 import Cafes from './components/Cafes';
 
 const client = new ApolloClient({
@@ -18,7 +17,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        <Cafes />
+        <TabNavigation />
       </View>
     </ApolloProvider>
   );

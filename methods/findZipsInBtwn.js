@@ -1,18 +1,17 @@
-const findShortestPath = require('./findShortestPath')
-
 const findZipsInBtwn = (endZip) => {
   const zipsInShortestPath = [];
   let currentZip = endZip;
   while (currentZip) {
-    zipsInShortestPath.unshift(currentZip.zipCode);
+    //Customize obj for frontend Apollo GraphQL Custom Input Query
+    if (currentZip.zipCode !== "Central Park") {
+      zipsInShortestPath.unshift({ zipCode: currentZip.zipCode });
+    }
     currentZip = currentZip.previousNode;
   }
   return zipsInShortestPath;
 }
 
-// Test case
-// const allZips = findShortestPath(10002, 10014);
-// const lastZip = allZips[allZips.length - 1]
-// console.log(findZipsInBtwn(lastZip))
+//DONT ADD CENTRAL PARK IN ARRAY!!!
+
 
 module.exports = findZipsInBtwn;

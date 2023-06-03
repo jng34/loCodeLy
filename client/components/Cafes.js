@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_CAFES_IN_ZIPS, GET_CAFES } from "../graphQL/queries";
+import { GET_CAFES_IN_ZIPS } from "../graphQL/queries";
 
 export default function Cafes({ route, navigation }) {
   // Destructure params passed from Home
-  // const { zips } = route.params;
+  const { zipsArray } = route.params;
 
   const pressHandler = ({ id, name, address, url, zipCode }) => {
     console.log(id, name, address, url, zipCode);
@@ -26,15 +26,8 @@ export default function Cafes({ route, navigation }) {
     );
   };  
 
-  const zipsArray = [
-    {zipCode: "10031"}, 
-    {zipCode: "10002"},
-    {zipCode: "10038"},
-    {zipCode: "10035"},
-  ];
-
   const { loading, error, data } = useQuery(GET_CAFES_IN_ZIPS, {
-    variables: { zipsArray: zipsArray }
+    variables: { zipsArray }
   });
 
   if (loading) return <Text>Loading...</Text>;
@@ -45,7 +38,6 @@ export default function Cafes({ route, navigation }) {
   for (let { cafes } of data.zips) {
     allCafes.push(...cafes)
   }
-  console.log(allCafes)
 
   return (
     <View style={styles.container}>
