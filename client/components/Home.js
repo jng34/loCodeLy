@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
 import zipCodeGraph from '../../graphs/zipCodeGraph.js';
 import findAllZipsInShortestPath from '../../methods/findAllZipsInShortestPath.js';
@@ -8,15 +8,6 @@ export default function Home({ navigation }) {
   const [endZip, setEndZip] = useState('');
   const [startZipErr, setStartZipErr] = useState(false);
   const [endZipErr, setEndZipErr] = useState(false);
-  const [zipsArray, setZipsArray] = useState([]);
-
-  // Method for finding shortest path between zipcodes
-  // const shortestPath = (start, end) => {
-  //   const allZips = findShortestPath(start, end);
-  //   const lastZip = allZips[allZips.length - 1];
-  //   const shortestPathZips = findZipsInBtwn(lastZip);
-  //   setZipsArray(shortestPathZips)  
-  // }
 
   const handleZipSearch = () => {
     console.log(`Query submitted for starting zip ${startZip} and ending zip ${endZip}.`)
@@ -25,12 +16,12 @@ export default function Home({ navigation }) {
     !(endZip in zipCodeGraph) ? setEndZipErr(true) : setEndZipErr(false)
     
     if (startZip in zipCodeGraph && endZip in zipCodeGraph) {
-      // return all zipCodes in between
+      // return all zipCodes in between start and end zips
       const zipsInShortestPath = findAllZipsInShortestPath(startZip, endZip);
-      setZipsArray(zipsInShortestPath);
+      // pass zipsArray & navigate to Cafes
+      navigation.navigate("Cafes", { zipsArray: zipsInShortestPath })
     }
   }
-
 
   return (
     <View style={styles.container}>

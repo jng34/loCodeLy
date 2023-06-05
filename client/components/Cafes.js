@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { GET_CAFES_IN_ZIPS } from "../graphQL/queries";
 
 export default function Cafes({ route, navigation }) {
+  // Create default components that load local cafes from zipCodes from User zip code
   // Destructure params passed from Home
   const { zipsArray } = route.params;
 

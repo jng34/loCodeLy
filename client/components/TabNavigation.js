@@ -19,6 +19,11 @@ export default function TabNavigation() {
           tabBarShowLabel: true,
           tabBarLabelPosition: "below-icon",
           tabBarActiveTintColor: "#e91e63",
+          tabBarStyle: {
+            marginLeft: 100,
+            marginRight: 100,
+            paddingHorizontal: 30,    
+          },
         }}
       >
         <Tab.Screen
