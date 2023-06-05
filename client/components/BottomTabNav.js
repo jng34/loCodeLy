@@ -1,19 +1,18 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import Home from "./Home";
 import Users from "./Users";
 import Map from "./Map";
-import CredentialsStack from "./CredentialsStack";
-import Cafes from "./Cafes";
+import ProfileStack from "./ProfileStack";
+import HomeStack from "./HomeStack";
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+export default function BottomTabNav() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="HomeStack"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: true,
@@ -27,8 +26,8 @@ export default function TabNavigation() {
         }}
       >
         <Tab.Screen
-          name="Home"
-          component={Home}
+          name="HomeStack"
+          component={HomeStack}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color, size }) => (
@@ -46,7 +45,7 @@ export default function TabNavigation() {
             ),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Cafes"
           component={Cafes}
           options={{
@@ -55,7 +54,7 @@ export default function TabNavigation() {
               <MaterialCommunityIcons name="coffee" color={color} size={size} />
             ),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Map"
           component={Map}
@@ -67,8 +66,8 @@ export default function TabNavigation() {
           }}
         />
         <Tab.Screen
-          name="Profile"
-          component={CredentialsStack}
+          name="ProfileStack"
+          component={ProfileStack}
           options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color, size }) => (

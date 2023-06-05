@@ -5,10 +5,10 @@ import Profile from './Profile';
 
 const Stack = createNativeStackNavigator();
 
-export default function CredentialsStack() {
+export default function ProfileStack() {
   return (
     <Stack.Navigator 
-      initialRouteName='Credentials'
+      initialRouteName='Profile'
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="Profile" component={Profile} />

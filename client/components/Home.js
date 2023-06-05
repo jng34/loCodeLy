@@ -52,9 +52,6 @@ export default function Home({ navigation }) {
       <View style={styles.space}>
         <Button title="Search" onPress={handleZipSearch} />
       </View>
-      <View style={styles.space}>
-        <Button title="Go To Cafes" onPress={() => navigation.navigate("Cafes", { zipsArray })} /> 
-      </View>
       {startZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
       {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
     </View>
@@ -69,7 +66,6 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 30,
-    textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
   },
@@ -78,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   input: {
-    width: 300,
+    width: 150,
     height: 40,
     backgroundColor: '#fff',
     paddingVertical: 10,

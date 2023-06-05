@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
 import { GET_CAFES_IN_ZIPS } from "../graphQL/queries";
@@ -42,6 +43,7 @@ export default function Cafes({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Cafes & Coffee Spots</Text>
       <FlatList 
         keyExtractor={item => item.id}
         data={allCafes}
@@ -63,6 +65,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingTop: 30,
+    paddingBottom: 30
   },
   item: {
     marginTop: 24,
