@@ -13,15 +13,16 @@ const GET_SINGLE_USER = gql`
   }
 `
 
-const GET_USERS = gql`
-  query GetUsers {
-    users {
-      id
-      name
-      email
-      bio
-      techStack
-      zipCode
+const GET_USERS_IN_ZIP = gql`
+  query ($zipCode: String!) {
+    zip (zipCode: $zipCode) {
+      users {
+        id
+        name
+        email
+        techStack
+        bio
+      }
     }
   }
 `
@@ -64,4 +65,4 @@ const SIGN_UP_USER = gql`
   }
 `
 
-export { GET_SINGLE_USER, GET_USERS, GET_CAFES_IN_ZIPS, GET_CAFES, SIGN_UP_USER }
+export { GET_SINGLE_USER, GET_USERS_IN_ZIP, GET_CAFES_IN_ZIPS, GET_CAFES, SIGN_UP_USER }

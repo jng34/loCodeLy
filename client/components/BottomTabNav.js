@@ -35,7 +35,7 @@ export default function BottomTabNav() {
             ),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Users"
           component={Users}
           options={{
@@ -44,7 +44,7 @@ export default function BottomTabNav() {
               <MaterialIcons name="people" color={color} size={size} />
             ),
           }}
-        />
+        /> */}
         {/* <Tab.Screen
           name="Cafes"
           component={Cafes}

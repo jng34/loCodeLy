@@ -1,32 +1,34 @@
-import { useState } from 'react';
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
 import { GET_CAFES_IN_ZIPS } from "../graphQL/queries";
 
 export default function Cafes({ route, navigation }) {
-  // Create default components that load local cafes from zipCodes from User zip code
-  // Destructure params passed from Home
   const { zipsArray } = route.params;
 
-  const pressHandler = ({ id, name, address, url, zipCode }) => {
-    console.log(id, name, address, url, zipCode);
-    Alert.alert(
-      name,
-      address,
-      [
-        {
-          text: "Cancel",
-          onPress: () => Alert.alert("Cancel Pressed"),
-          style: "cancel",
-        },
-      ],
-      {
-        cancelable: true,
-        onDismiss: () =>
-          Alert.alert("This was dismissed by tapping outside alert dialog"),
-      }
-    );
-  };  
+  const getUsers = ({ zipCode }) => {
+    console.log(`find users in zipCode ${zipCode}`)
+    navigation.navigate("Users", { zipCode })
+  }
+
+  // const pressHandler = ({ id, name, address, url, zipCode }) => {
+  //   console.log(id, name, address, url, zipCode);
+  //   Alert.alert(
+  //     name,
+  //     address,
+  //     [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => Alert.alert("Cancel Pressed"),
+  //         style: "cancel",
+  //       },
+  //     ],
+  //     {
+  //       cancelable: true,
+  //       onDismiss: () =>
+  //         Alert.alert("This was dismissed by tapping outside alert dialog"),
+  //     }
+  //   );
+  // };
 
   const { loading, error, data } = useQuery(GET_CAFES_IN_ZIPS, {
     variables: { zipsArray }
@@ -40,16 +42,17 @@ export default function Cafes({ route, navigation }) {
   for (let { cafes } of data.zips) {
     allCafes.push(...cafes)
   }
+  console.log(allCafes)
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cafes & Coffee Spots</Text>
-      <FlatList 
+      <FlatList
         keyExtractor={item => item.id}
         data={allCafes}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => pressHandler(item)}>
-            <Text style={styles.item}>{item.name}</Text>
+          <TouchableOpacity  style={styles.item} onPress={() => getUsers(item)}>
+            <Text>{item.name}</Text>
             <Text>{item.address}</Text>
             <Text>{item.zipCode}</Text>
           </TouchableOpacity>
