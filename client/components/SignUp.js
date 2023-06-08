@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Button, Text, TextInput, View } from "react-native";
 import { useMutation } from '@apollo/client';
-import { SIGN_UP_USER } from '../graphQL/schema';
+import { SIGN_UP_USER } from '../graphQL/mutations';
 import Profile from './Profile';
 
 
@@ -17,7 +17,7 @@ export default function SignUp({ navigation }) {
 
   // GraphQL mutation
   const [addUser, { data, loading, error }] = useMutation(SIGN_UP_USER);
-  
+
   useEffect(() => {
     console.log(data)
     console.log(loading)
@@ -31,7 +31,7 @@ export default function SignUp({ navigation }) {
         email,
         password,
         zipCode,
-        techStack, 
+        techStack,
         bio
       }
     })
@@ -44,69 +44,69 @@ export default function SignUp({ navigation }) {
       {error ? <Text style={styles.errMsg}>Submission error! {error.message}</Text> : <></>}
       <Text style={styles.header}>Sign Up Form</Text>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={text => setName(text)} 
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setName(text)}
           placeholder='Name...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={text => setEmail(text)} 
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setEmail(text)}
           placeholder='Email...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
+        <TextInput
+          style={styles.input}
           secureTextEntry={true}
-          onChangeText={text => setPassword(text)} 
+          onChangeText={text => setPassword(text)}
           placeholder='Password...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
+        <TextInput
+          style={styles.input}
           secureTextEntry={true}
-          onChangeText={text => setConfirmPW(text)} 
+          onChangeText={text => setConfirmPW(text)}
           placeholder='Confirm password...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={text => setZipCode(text)} 
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setZipCode(text)}
           placeholder='Zip Code...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={text => setTechStack(text)} 
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setTechStack(text)}
           placeholder='Tech Stack...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={text => setBio(text)} 
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setBio(text)}
           placeholder='Bio...'
-          />
+        />
         <Text style={styles.errMsg}></Text>
       </View>
       <Button
         title="Sign Up"
         color="#841584"
         onPress={handleSubmit}
-        />
-      {loading ? <Text>Submitting...</Text> : <></>} 
+      />
+      {loading ? <Text>Submitting...</Text> : <></>}
       <Text style={styles.errMsg}></Text>
 
       <View style={styles.space}>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 15, 
+    borderRadius: 15,
     fontSize: 16,
   },
   errMsg: {

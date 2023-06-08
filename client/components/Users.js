@@ -8,16 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_USERS_IN_ZIP } from "../graphQL/schema";
+import { GET_USERS_IN_ZIP } from "../graphQL/queries";
 
 
 export default function Users({ route, navigation }) {
   const { zipCode } = route.params;
 
-  const { loading, error, data } = useQuery(GET_USERS_IN_ZIP, { variables: { zipCode }});
+  const { loading, error, data } = useQuery(GET_USERS_IN_ZIP, { variables: { zipCode } });
   if (loading) return (<Text>Loading...</Text>);
   if (error) return <Text>`Error! ${error.message}`</Text>;
-  
+
   console.log(data.zip.users)
 
   const allUsers = data.zip.users;

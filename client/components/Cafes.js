@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_CAFES_IN_ZIPS } from "../graphQL/schema";
+import { GET_CAFES_IN_ZIPS } from "../graphQL/queries";
 
 export default function Cafes({ route, navigation }) {
   const { zipsArray } = route.params;
@@ -51,7 +51,7 @@ export default function Cafes({ route, navigation }) {
         keyExtractor={item => item.id}
         data={allCafes}
         renderItem={({ item }) => (
-          <TouchableOpacity  style={styles.item} onPress={() => getUsers(item)}>
+          <TouchableOpacity style={styles.item} onPress={() => getUsers(item)}>
             <Text>{item.name}</Text>
             <Text>{item.address}</Text>
             <Text>{item.zipCode}</Text>

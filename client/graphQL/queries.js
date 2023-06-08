@@ -53,16 +53,4 @@ const GET_CAFES = gql`
   }
 `
 
-const SIGN_UP_USER = gql`
-  mutation ($name: String!, $email: String!, $password: String!, $zipCode: String!, $bio: String!, $techStack: String!) {
-    addUser(name: $name, email: $email, password: $password, zipCode: $zipCode, bio: $bio, techStack: $techStack) {
-      name
-      email
-      zipCode
-      bio
-      techStack
-    }
-  }
-`
-
-export { GET_SINGLE_USER, GET_USERS_IN_ZIP, GET_CAFES_IN_ZIPS, GET_CAFES, SIGN_UP_USER }
+export { GET_SINGLE_USER, GET_USERS_IN_ZIP, GET_CAFES_IN_ZIPS, GET_CAFES }
