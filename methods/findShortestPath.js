@@ -1,5 +1,5 @@
 const graph = require('../graphs/zipCodeGraph')
-const createZipMap = require("../zipNodes/createZipMap");
+const createZipMap = require("./createZipMap");
 
 
 const findShortestPath = (startZip, endZip) => {

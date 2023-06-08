@@ -11,7 +11,7 @@ const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 // GraphQL
 const { graphqlHTTP } = require('express-graphql')
-const gqlSchema = require('./graphQL/graphQLSchema');
+const gqlSchema = require('./graphQL/schema');
 // Routers
 const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');

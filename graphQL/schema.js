@@ -68,10 +68,9 @@ const CafeType = new GraphQLObjectType({
     name: { type: GraphQLString },
     address: { type: GraphQLString },
     url: { type: GraphQLString },
-    zipCode: { type: GraphQLString }
+    zipCode: { type: GraphQLString },
   })
 });
-
 
 
 // GraphQL queries - GET reqs
@@ -116,8 +115,8 @@ const Query = new GraphQLObjectType({
     cafe: {
       type: CafeType,
       args: { id: { type: GraphQLID } },
-      resolve(parent, args) {
-        return Cafe.findById(args.id);
+      resolve(parent, { id }) {
+        return Cafe.findById(id);
       },
     },
 
@@ -135,7 +134,6 @@ const Query = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-
     addUser:{
       type: UserType,
       args:{
