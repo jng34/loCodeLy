@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler'; // NEEDED TO PREVENT APP CRASH
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 import { StyleSheet, View } from 'react-native';
 import BottomTabNav from "./components/BottomTabNav";
 import Home from './components/Home';
@@ -7,8 +8,23 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Cafes from './components/Cafes';
 
+const httpLink = new HttpLink({
+  uri: "http://localhost:3000/graphql"
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
+  link: from([ errorLink, httpLink ]),
   cache: new InMemoryCache(),
 });
 

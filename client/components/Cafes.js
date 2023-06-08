@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_CAFES_IN_ZIPS } from "../graphQL/queries";
+import { GET_CAFES_IN_ZIPS } from "../graphQL/schema";
 
 export default function Cafes({ route, navigation }) {
   const { zipsArray } = route.params;

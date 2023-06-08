@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Button, Text, TextInput, View } from "react-native";
 import { useMutation } from '@apollo/client';
-import { SIGN_UP_USER, GET_SINGLE_USER } from '../graphQL/queries';
+import { SIGN_UP_USER } from '../graphQL/schema';
 import Profile from './Profile';
 
 

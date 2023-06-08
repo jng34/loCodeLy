@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useQuery } from "@apollo/client";
-import { GET_USERS_IN_ZIP } from "../graphQL/queries";
+import { GET_USERS_IN_ZIP } from "../graphQL/schema";
 
 
 export default function Users({ route, navigation }) {
