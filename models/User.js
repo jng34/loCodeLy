@@ -27,33 +27,35 @@ const UserSchema = new mongoose.Schema({
   },
   zipCode:{ 
     type:String,
-    required: [true, 'ZipCode is required'],
+    required: [true, 'Invalid zip code. Please enter a valid one.'],
     enum: Object.keys(zips),
   },
   bio:{
     type:String,
-    minLength:[10, "Please write a bit more. You're more interesting than that"],
-    maxLength:300,
-    default: 'coder',
+    minLength: [10, "Min length is 10 words."],
+    maxLength: [300, "Max length is 300 words."]
+    // default: 'coder',
   },
   techStack:{
     type:String,
-    maxLength:300,
-    default: '',
+    required: [true, "Please indicate your tech stack."],
+    maxLength: [300, "Max length is 300 words."],
+    // default: '',
   }
 })
 
 UserSchema.plugin(uniqueValidator, { message: 'Error, {PATH} {VALUE} is already taken' })
 
-UserSchema.pre('save', async function () {
+UserSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 })
 
 UserSchema.methods.createJWT = function () {
   return jwt.sign(
-    { userId: this._id, name: this.name },
-    process.env.JWT_SECRET,
+    { userId: this._id, name: this.name }, // Payload
+    process.env.JWT_SECRET, // Secret
     {
       expiresIn: process.env.JWT_LIFETIME,
     }

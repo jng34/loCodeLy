@@ -9,7 +9,8 @@ import Login from './components/Login';
 import Cafes from './components/Cafes';
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:3000/graphql"
+  uri: "http://localhost:3000/graphql",
+  // credentials: "same-origin",
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {

@@ -7,10 +7,11 @@ const register = async (req, res) => {
   console.log(req.body)
   const user = await User.create({...req.body});
   const token = user.createJWT();
-  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token })
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 3 * 1000 });
+  res.status(StatusCodes.CREATED).json({ userId: user._id, token });
 }
 
-const login = async (req, res) => {
+const login = async (req, res) => { 
   const { email, password } = req.body;
 
   if (!email || !password) {

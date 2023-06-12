@@ -12,4 +12,16 @@ const SIGN_UP_USER = gql`
   }
 `
 
-export { SIGN_UP_USER }
+const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      name
+      email
+      zipCode
+      bio
+      techStack
+    }
+  }
+`
+  
+export { SIGN_UP_USER, LOGIN }

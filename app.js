@@ -3,6 +3,7 @@ require('dotenv').config();
 require('express-async-errors');
 const express = require('express'); // Express framework
 const app = express(); // Initialize express
+const cookieParser = require('cookie-parser');
 const connectDB = require('./db/connect'); //Connect to DB
 // Security packages
 const helmet = require('helmet');
@@ -28,6 +29,7 @@ app.use(
   })
 );
 app.use(express.json()); // Allows req.body to be captured
+app.use(cookieParser()); 
 app.use(
   helmet({
     // Allow graphiql access
@@ -43,12 +45,12 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema: gqlSchema,
-    graphiql: true,
+    graphiql: process.env.NODE_ENV === 'development',
   })
 );
 
 // Routes
-app.use("/api/v1/users", userRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/zips', authenticateUser, zipRouter);
 app.use('/api/v1/cafes', cafeRouter);
 
