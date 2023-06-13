@@ -12,10 +12,10 @@ export default function Login({ navigation }) {
     try {
       const res = await fetch('http://localhost:3000/api/v1/users/login', {
         method: "POST",
-        body: {
+        body: JSON.stringify({
           email,
           password
-        },
+        }),
         headers: { "Content-Type": "application/json"}
       });
       const userData = await res.json();

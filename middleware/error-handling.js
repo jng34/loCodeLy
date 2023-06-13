@@ -4,7 +4,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   let customError = {
     // set default
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    errors: {} || "Something went wrong. Try again later.",
+    errors: { msg: err.message } || "Something went wrong. Try again later.",
   };
 
   // Custom Cast error

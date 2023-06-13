@@ -2,12 +2,13 @@
 require('dotenv').config();
 require('express-async-errors');
 const express = require('express'); // Express framework
+const cors = require('cors');
 const app = express(); // Initialize express
+app.use(cors()); // Allow for cross-origin requests on APIs
 const cookieParser = require('cookie-parser');
 const connectDB = require('./db/connect'); //Connect to DB
 // Security packages
 const helmet = require('helmet');
-const cors = require('cors');
 const xss = require('xss-clean');
 const rateLimiter = require('express-rate-limit');
 // GraphQL
@@ -37,7 +38,6 @@ app.use(
       process.env.NODE_ENV === "production" ? undefined : false,
   })
 );
-app.use(cors()); // Allow for cross-origin requests on APIs
 app.use(xss());
 
 // Enable GraphQL
