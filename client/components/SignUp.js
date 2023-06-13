@@ -36,6 +36,7 @@ export default function SignUp({ navigation }) {
       if (userData.errors) {
         setErrors(userData.errors);
       }
+      console.log(userData)
     } catch (err) {
       console.log(err);
     }

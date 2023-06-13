@@ -5,9 +5,27 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit() {
+  async function handleSubmit() {
     // Set graphql auth login
     console.log(`logged in with email: ${email} and password: ${password}`)
+    // Set REST API auth login
+    try {
+      const res = await fetch('http://localhost:3000/api/v1/users/login', {
+        method: "POST",
+        body: {
+          email,
+          password
+        },
+        headers: { "Content-Type": "application/json"}
+      });
+      const userData = await res.json();
+      if (userData.errors) {
+        console.log(userData.errors)
+      }
+      console.log(userData)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -22,6 +40,7 @@ export default function Login({ navigation }) {
       <View style={styles.space}>
         <TextInput 
           style={styles.input} 
+          secureTextEntry={true}
           onChangeText={text => setPassword(text)} 
           placeholder='password...'
         />
