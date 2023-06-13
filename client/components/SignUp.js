@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Button, Text, TextInput, View } from "react-native";
 import { useMutation } from '@apollo/client';
 import { SIGN_UP_USER } from '../graphQL/mutations';
@@ -13,21 +13,12 @@ export default function SignUp({ navigation }) {
   const [zipCode, setZipCode] = useState('');
   const [techStack, setTechStack] = useState('');
   const [bio, setBio] = useState('');
+  // Errors state
+  const [errors, setErrors] = useState({});
  
-  // Errors
-  const [nameErr, setNameErr] = useState('');
-  const [emailErr, setEmailErr] = useState('');
-  const [passwordErr, setPasswordErr] = useState('');
-  const [zipCodeErr, setZipCodeErr] = useState('');
-  const [techStackErr, setTechStackErr] = useState('');
-  const [bioErr, setBioErr] = useState('');
- 
-
-  // GraphQL mutation
-  const [addUser, { data, loading, error }] = useMutation(SIGN_UP_USER);
+  useEffect(()=>{}, [errors]);
 
   const handleSubmit = async () => {
-    // fetch("http:localhost:3000/api/v1/users/register")
     try {
       const res = await fetch('http://localhost:3000/api/v1/users/register', {
         method: "POST",
@@ -43,18 +34,16 @@ export default function SignUp({ navigation }) {
       })
       const userData = await res.json();
       if (userData.errors) {
-        const { name, email, password, techStack, bio, zipCode } = userData.errors;
-        setNameErr(name);
-        setEmailErr(email);
-        setPasswordErr(password);
-        setZipCodeErr(zipCode);
-        setTechStackErr(techStack);
-        setBioErr(bio);
+        setErrors(userData.errors);
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
+
+  // GraphQL mutation
+  // const [addUser, { data, loading, error }] = useMutation(SIGN_UP_USER);
+
   // const handleSubmit = () => {
   //   if (error) {
   //     console.log(error)
@@ -72,10 +61,8 @@ export default function SignUp({ navigation }) {
   //   if (data) (() => navigation.navigate('Profile'))()
   // }
 
-
   return (
     <View style={styles.container}>
-      {error ? <Text style={styles.errMsg}>Submission error! {error.message}</Text> : <></>}
       <Text style={styles.header}>Sign Up Form</Text>
       <View style={styles.space}>
         <TextInput
@@ -83,7 +70,7 @@ export default function SignUp({ navigation }) {
           onChangeText={text => setName(text)}
           placeholder='Name...'
         />
-        {nameErr ? <Text style={styles.errMsg}>{nameErr}</Text> : <></>}
+        {errors.name ? <Text style={styles.errMsg}>{errors.name}</Text> : <></>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -91,7 +78,7 @@ export default function SignUp({ navigation }) {
           onChangeText={text => setEmail(text)}
           placeholder='Email...'
         />
-        {emailErr ? <Text style={styles.errMsg}>{emailErr}</Text> : <></>}
+        {errors.email ? <Text style={styles.errMsg}>{errors.email}</Text> : <></>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -100,7 +87,7 @@ export default function SignUp({ navigation }) {
           onChangeText={text => setPassword(text)}
           placeholder='Password...'
         />
-        {passwordErr ? <Text style={styles.errMsg}>{passwordErr}</Text> : <></>}
+        {errors.password ? <Text style={styles.errMsg}>{errors.password}</Text> : <></>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -117,7 +104,7 @@ export default function SignUp({ navigation }) {
           onChangeText={text => setZipCode(text)}
           placeholder='Zip Code...'
         />
-        {zipCodeErr ? <Text style={styles.errMsg}>{zipCodeErr}</Text> : <></>}
+        {errors.zipCode ? <Text style={styles.errMsg}>{errors.zipCode}</Text> : <></>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -125,7 +112,7 @@ export default function SignUp({ navigation }) {
           onChangeText={text => setTechStack(text)}
           placeholder='Tech Stack...'
         />
-        {techStackErr ? <Text style={styles.errMsg}>{techStackErr}</Text> : <></>}
+        {errors.techStack ? <Text style={styles.errMsg}>{errors.techStack}</Text> : <></>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -133,16 +120,13 @@ export default function SignUp({ navigation }) {
           onChangeText={text => setBio(text)}
           placeholder='Bio...'
         />
-         {bioErr ? <Text style={styles.errMsg}>{bioErr}</Text> : <></>}
+        {errors.bio ? <Text style={styles.errMsg}>{errors.bio}</Text> : <></>}
       </View>
       <Button
         title="Sign Up"
         color="#841584"
         onPress={handleSubmit}
       />
-      {loading ? <Text>Submitting...</Text> : <></>}
-      <Text style={styles.errMsg}></Text>
-
       <View style={styles.space}>
         <Text>Already a user?</Text>
         <Button

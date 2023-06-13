@@ -37,6 +37,7 @@ export default function Home({ navigation }) {
           keyboardType="number-pad"
           maxLength={5}
         />
+        {startZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -48,12 +49,11 @@ export default function Home({ navigation }) {
           keyboardType="number-pad"
           maxLength={5}
         />
+        {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
       </View>
       <View style={styles.space}>
         <Button title="Search" onPress={handleZipSearch} />
       </View>
-      {startZipErr ? <Text style={styles.error}>Invalid user zip</Text> : <Text></Text>}
-      {endZipErr ? <Text style={styles.error}>Invalid destination zip</Text> : <Text></Text>}
     </View>
   );
 }
