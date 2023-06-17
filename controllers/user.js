@@ -29,7 +29,8 @@ const login = async (req, res) => {
   }
 
   //compare password
-  const token = user.createJWT()
+  const token = user.createJWT();
+  res.cookie('jwt', token, { httpOnly: true });
   res.status(StatusCodes.OK).json({ userName: user.name, token })
 }
 

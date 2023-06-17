@@ -2,9 +2,8 @@
 require('dotenv').config();
 require('express-async-errors');
 const express = require('express'); // Express framework
-const cors = require('cors');
 const app = express(); // Initialize express
-app.use(cors()); // Allow for cross-origin requests on APIs
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./db/connect'); //Connect to DB
 // Security packages
@@ -28,13 +27,19 @@ app.use(
     windowMs: 15 * 60 * 1000, // 15 min
     max: 100,
   })
-);
+  );
+const corsOptions = {
+  origin: "http://localhost:19006",
+  credentials: true,
+};
+  
+app.use(cors(corsOptions)); // Allow for cross-origin requests on APIs
 app.use(express.json()); // Allows req.body to be captured
 app.use(cookieParser()); 
 app.use(
   helmet({
-    // Allow graphiql access
-    contentSecurityPolicy:
+      // Allow graphiql access
+      contentSecurityPolicy:
       process.env.NODE_ENV === "production" ? undefined : false,
   })
 );
