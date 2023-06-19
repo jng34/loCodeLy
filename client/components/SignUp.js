@@ -19,9 +19,11 @@ export default function SignUp({ navigation }) {
   useEffect(()=>{}, [errors]);
 
   const handleSubmit = async () => {
+    setErrors({});
     try {
       const res = await fetch('http://localhost:3000/api/v1/users/register', {
         method: "POST",
+        credentials: "include",
         body: JSON.stringify({
           name,
           email,

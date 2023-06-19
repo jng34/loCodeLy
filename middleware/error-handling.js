@@ -20,6 +20,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = 400;
   }
 
+
   return res
     .status(customError.statusCode)
     .json({ 

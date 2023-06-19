@@ -7,15 +7,19 @@ const register = async (req, res) => {
   console.log(req.body)
   const user = await User.create({...req.body});
   const token = user.createJWT();
-  res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 3 * 1000 });
+  res.cookie('jwt', token, { httpOnly: true });
   res.status(StatusCodes.CREATED).json({ userId: user._id, token });
 }
 
-const login = async (req, res) => { 
+const login = async (req, res, next) => { 
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    throw new BadRequestError('Please provide email and password')
+  if (!email) {
+    throw new BadRequestError('Please enter an email');
+  }
+
+  if (!password) {
+    throw new BadRequestError('Please enter a password');
   }
 
   const user = await User.findOne({ email });
@@ -30,7 +34,7 @@ const login = async (req, res) => {
 
   //compare password
   const token = user.createJWT();
-  res.cookie('jwt', token, { httpOnly: true });
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 });
   res.status(StatusCodes.OK).json({ userName: user.name, token })
 }
 

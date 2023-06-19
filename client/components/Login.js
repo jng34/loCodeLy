@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from "react-native";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+  useEffect(()=>{}, [errors]);
 
   async function handleSubmit() {
     // Set graphql auth login
-    console.log(`logged in with email: ${email} and password: ${password}`)
     // Set REST API auth login
+    setErrors({});
     try {
       const res = await fetch('http://localhost:3000/api/v1/users/login', {
         method: "POST",
@@ -17,11 +20,11 @@ export default function Login({ navigation }) {
           email,
           password
         }),
-        headers: { "Content-Type": "application/json"}
+        headers: { "Content-Type": "application/json" }
       });
       const userData = await res.json();
       if (userData.errors) {
-        console.log(userData.errors)
+        setErrors(userData.errors);
       }
       console.log(userData)
     } catch (error) {
@@ -45,6 +48,7 @@ export default function Login({ navigation }) {
           onChangeText={text => setPassword(text)} 
           placeholder='password...'
         />
+        {errors.msg ? <Text style={styles.errMsg}>{errors.msg}</Text> : <></>}
       </View>
       <Button
         title="Login"
@@ -77,6 +81,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15, 
     fontSize: 16,
+  },
+  errMsg: {
+    color: 'red',
+    fontSize: 15
   },
   space: {
     paddingTop: 10,
