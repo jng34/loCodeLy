@@ -6,7 +6,7 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
-  useEffect(()=>{}, [errors]);
+  useEffect(() => { }, [errors]);
 
   async function handleSubmit() {
     // Set graphql auth login
@@ -26,7 +26,8 @@ export default function Login({ navigation }) {
       if (userData.errors) {
         setErrors(userData.errors);
       }
-      console.log(userData)
+      console.log(userData);
+      if (userData.name) navigation.navigate("UserPage", { userData })
     } catch (error) {
       console.log(error)
     }
@@ -35,17 +36,17 @@ export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
-          onChangeText={text => setEmail(text)} 
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setEmail(text)}
           placeholder='email...'
         />
       </View>
       <View style={styles.space}>
-        <TextInput 
-          style={styles.input} 
+        <TextInput
+          style={styles.input}
           secureTextEntry={true}
-          onChangeText={text => setPassword(text)} 
+          onChangeText={text => setPassword(text)}
           placeholder='password...'
         />
         {errors.msg ? <Text style={styles.errMsg}>{errors.msg}</Text> : <></>}
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 15, 
+    borderRadius: 15,
     fontSize: 16,
   },
   errMsg: {

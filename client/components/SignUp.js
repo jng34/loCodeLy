@@ -15,8 +15,8 @@ export default function SignUp({ navigation }) {
   const [bio, setBio] = useState('');
   // Errors state
   const [errors, setErrors] = useState({});
- 
-  useEffect(()=>{}, [errors]);
+
+  useEffect(() => { }, [errors]);
 
   const handleSubmit = async () => {
     setErrors({});
@@ -39,6 +39,7 @@ export default function SignUp({ navigation }) {
         setErrors(userData.errors);
       }
       console.log(userData)
+      if (userData.name) navigation.navigate("UserPage", { userData })
     } catch (err) {
       console.log(err);
     }

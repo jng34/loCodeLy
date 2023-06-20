@@ -7,8 +7,15 @@ const register = async (req, res) => {
   console.log(req.body)
   const user = await User.create({...req.body});
   const token = user.createJWT();
-  res.cookie('jwt', token, { httpOnly: true });
-  res.status(StatusCodes.CREATED).json({ userId: user._id, token });
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+  res.status(StatusCodes.CREATED).json({ 
+    name: user.name,
+    email: user.email,
+    zipCode: user.zipCode,
+    techStack: user.techStack,
+    bio: user.bio, 
+    token, 
+  });
 }
 
 const login = async (req, res, next) => { 
@@ -34,8 +41,15 @@ const login = async (req, res, next) => {
 
   //compare password
   const token = user.createJWT();
-  res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 });
-  res.status(StatusCodes.OK).json({ userName: user.name, token })
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+  res.status(StatusCodes.OK).json({ 
+    name: user.name,
+    email: user.email,
+    zipCode: user.zipCode,
+    techStack: user.techStack,
+    bio: user.bio, 
+    token, 
+  })
 }
 
 

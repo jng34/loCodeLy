@@ -1,6 +1,6 @@
 import { StyleSheet, Button, Text, View } from 'react-native';
 
-export default function Profile({ navigation }) {
+export default function Credentials({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>User Profile</Text>
