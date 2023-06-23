@@ -8,25 +8,18 @@ const register = async (req, res) => {
   const user = await User.create({...req.body});
   const token = user.createJWT();
   res.cookie('jwt', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-  res.status(StatusCodes.CREATED).json({ 
-    name: user.name,
-    email: user.email,
-    zipCode: user.zipCode,
-    techStack: user.techStack,
-    bio: user.bio, 
-    token, 
-  });
+  res.status(StatusCodes.CREATED).json(user);
 }
 
 const login = async (req, res, next) => { 
   const { email, password } = req.body;
 
   if (!email) {
-    throw new BadRequestError('Please enter an email');
+    throw new BadRequestError('Invalid email');
   }
 
   if (!password) {
-    throw new BadRequestError('Please enter a password');
+    throw new BadRequestError('Invalid password');
   }
 
   const user = await User.findOne({ email });
@@ -39,17 +32,9 @@ const login = async (req, res, next) => {
     throw new UnauthenticatedError('Invalid password');
   }
 
-  //compare password
   const token = user.createJWT();
   res.cookie('jwt', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-  res.status(StatusCodes.OK).json({ 
-    name: user.name,
-    email: user.email,
-    zipCode: user.zipCode,
-    techStack: user.techStack,
-    bio: user.bio, 
-    token, 
-  })
+  res.status(StatusCodes.OK).json(user)
 }
 
 

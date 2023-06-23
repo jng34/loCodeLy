@@ -4,7 +4,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   let customError = {
     // set default
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    errors: { msg: err.message } || "Something went wrong. Try again later.",
+    errors: {} || "Something went wrong. Try again later.",
   };
 
   // Custom Cast error
@@ -20,6 +20,15 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = 400;
   }
 
+  // Login errors
+  if (err.message === 'Invalid email') {
+    customError.errors.email = 'Please enter a valid email';
+    customError.statusCode = 400;
+  }
+  if (err.message === 'Invalid password') {
+    customError.errors.password = 'Please enter a valid password';
+    customError.statusCode = 400;
+  }
 
   return res
     .status(customError.statusCode)

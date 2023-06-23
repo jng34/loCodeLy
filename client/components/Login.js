@@ -41,6 +41,7 @@ export default function Login({ navigation }) {
           onChangeText={text => setEmail(text)}
           placeholder='email...'
         />
+        {errors.email ? <Text style={styles.errMsg}>{errors.email}</Text> : <></>}
       </View>
       <View style={styles.space}>
         <TextInput
@@ -49,7 +50,7 @@ export default function Login({ navigation }) {
           onChangeText={text => setPassword(text)}
           placeholder='password...'
         />
-        {errors.msg ? <Text style={styles.errMsg}>{errors.msg}</Text> : <></>}
+        {errors.password ? <Text style={styles.errMsg}>{errors.password}</Text> : <></>}
       </View>
       <Button
         title="Login"
