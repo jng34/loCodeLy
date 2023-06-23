@@ -18,7 +18,7 @@ const userRouter = require('./routes/user');
 const zipRouter = require('./routes/zip');
 const cafeRouter = require('./routes/cafe');
 // Middleware calls
-const authenticateUser = require('./middleware/authentication');
+const { requireAuth } = require('./middleware/authentication');
 const errorHandlerMiddleware = require('./middleware/error-handling');
 const notFoundMiddleWare = require("./middleware/not-found");
 
@@ -56,8 +56,8 @@ app.use(
 
 // Routes
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/zips', authenticateUser, zipRouter);
-app.use('/api/v1/cafes', cafeRouter);
+app.use('/api/v1/zips', requireAuth, zipRouter);
+app.use('/api/v1/cafes', requireAuth, cafeRouter);
 
 
 // Middleware functions

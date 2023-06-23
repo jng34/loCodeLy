@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, Text, Button, View } from 'react-native';
 import zipCodeGraph from '../../graphs/zipCodeGraph.js';
 import findAllZipsInShortestPath from '../../methods/findAllZipsInShortestPath.js';
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
   const [startZip, setStartZip] = useState('');
   const [endZip, setEndZip] = useState('');
   const [startZipErr, setStartZipErr] = useState(false);
@@ -23,10 +23,12 @@ export default function Home({ navigation }) {
     }
   }
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>LoCodely</Text>
       <Text style={styles.description}>meet and code locally</Text>
+      {route.params ? <Text>Welcome {route.params.userData.name}!</Text> : <Text></Text>}
       <View style={styles.space}>
         <TextInput
           placeholder="Starting zip code"

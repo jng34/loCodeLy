@@ -9,7 +9,6 @@ export default function SignUp({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPW, setConfirmPW] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [techStack, setTechStack] = useState('');
   const [bio, setBio] = useState('');
@@ -67,7 +66,7 @@ export default function SignUp({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Sign Up Form</Text>
+      <Text style={styles.header}>Meet loCodely with others!</Text>
       <View style={styles.space}>
         <TextInput
           style={styles.input}
@@ -92,15 +91,6 @@ export default function SignUp({ navigation }) {
           placeholder='Password...'
         />
         {errors.password ? <Text style={styles.errMsg}>{errors.password}</Text> : <></>}
-      </View>
-      <View style={styles.space}>
-        <TextInput
-          style={styles.input}
-          secureTextEntry={true}
-          onChangeText={text => setConfirmPW(text)}
-          placeholder='Confirm password...'
-        />
-        <Text style={styles.errMsg}></Text>
       </View>
       <View style={styles.space}>
         <TextInput
@@ -150,7 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    fontSize: 25,
+    fontSize: 15,
     fontWeight: 'bold'
   },
   input: {
