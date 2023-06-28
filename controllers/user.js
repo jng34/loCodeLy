@@ -7,8 +7,8 @@ const register = async (req, res) => {
   console.log(req.body)
   const user = await User.create({...req.body});
   const token = user.createJWT();
-  res.cookie('jwt', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-  res.status(StatusCodes.CREATED).json(user);
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 60 * 1000 });
+  res.status(StatusCodes.CREATED).json({ user, token });
 }
 
 const login = async (req, res, next) => { 
@@ -33,8 +33,8 @@ const login = async (req, res, next) => {
   }
 
   const token = user.createJWT();
-  res.cookie('jwt', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
-  res.status(StatusCodes.OK).json(user)
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 60 * 1000 });
+  res.status(StatusCodes.OK).json({ user, token })
 }
 
 

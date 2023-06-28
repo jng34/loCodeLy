@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import Users from "./Users";
 import Map from "./Map";
 import ProfileStack from "./ProfileStack";
 import HomeStack from "./HomeStack";
+import UserPage from "./UserPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -70,6 +70,16 @@ export default function BottomTabNav() {
           component={ProfileStack}
           options={{
             tabBarLabel: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="UserPage"
+          component={UserPage}
+          options={{
+            tabBarLabel: "User",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="account" color={color} size={size} />
             ),

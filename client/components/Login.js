@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, Text, Button, View } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -7,6 +8,17 @@ export default function Login({ navigation }) {
   const [errors, setErrors] = useState({});
 
   useEffect(() => { }, [errors]);
+
+  const storeToken = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('user', jsonValue);
+      console.log('user, ' + value)
+    } catch (error) {
+      // saving error
+      console.log(error)
+    }
+  };
 
   async function handleSubmit() {
     // Set graphql auth login
@@ -26,8 +38,9 @@ export default function Login({ navigation }) {
       if (userData.errors) {
         setErrors(userData.errors);
       }
-      console.log(userData);
-      if (userData.name) navigation.navigate("UserPage", { userData })
+      // console.log(userData);
+      storeToken(userData)
+      if (userData.user) navigation.navigate("UserPage", { userData })
     } catch (error) {
       console.log(error)
     }
